@@ -9,7 +9,7 @@ export default function AuthLayout({ mode, children, bodyText, headingText }) {
   return (
     <main className="md:grid md:grid-cols-2 w-[95dvw] max-w-[1280px] items-center gap-x-[10%]">
       <div className="hidden md:block">
-        <ImageSection isSignup={mode === "signup"} imgSrc={`/${mode}.png`}>
+        <ImageSection isSignup={mode === "signup"} imgSrc={`/${mode}-.png`}>
           {bodyText}
         </ImageSection>
       </div>
