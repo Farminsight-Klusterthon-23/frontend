@@ -1,15 +1,28 @@
+"use client"
 import AuthenticatedScreensHeader from "./AppHeader"
 import Sidebar from "./AppSidebar"
+import { useState } from "react"
 
 export default function AuthenticatedScreensLayout({ children, pageTitle }) {
+  const [showSidebar, setShowSidebar] = useState(false)
+
   return (
     <div className="flex bg-primary-contrast-text">
       <div className>
-        <Sidebar />
+        <Sidebar show={showSidebar} hideSidebar={() => setShowSidebar(false)} />
       </div>
-      <div className="grow">
-        <AuthenticatedScreensHeader heading={pageTitle} />
-        <div className="mx-auto flex justify-center items-center min-h-[calc(100dvh-94px)]">
+      <div
+        className={`grow ${showSidebar ? "blur-[3px] brightness-[90%]" : ""}`}
+      >
+        <AuthenticatedScreensHeader
+          toggleNavigation={(e) => setShowSidebar((prev) => !prev)}
+          heading={pageTitle}
+        />
+        <div
+          className={`${
+            showSidebar ? "overflow-hidden" : "overflow-auto"
+          } mx-auto flex justify-center items-center min-h-[calc(100dvh-94px)]`}
+        >
           <main className="w-full grow">{children}</main>
         </div>
       </div>

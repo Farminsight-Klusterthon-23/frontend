@@ -1,4 +1,3 @@
-import { PlusJakarta } from "next/font/google"
 
 export default function ChatHistoryList() {
   return (

@@ -3,10 +3,19 @@ import Links from "./AppNavLinks"
 import UserAvatarAndName from "./UserAvatarAndName"
 import ChatHistory from "./ChatHistoryList"
 import { LogoutButton } from "./Buttons"
+import { useRef } from "react"
+import useOutsideClick from "../_hooks/useOutsideClick"
 
-export default function SideBar() {
+export default function SideBar({ show, hideSidebar = () => {} }) {
+  const sidebarRef = useRef(null)
+  useOutsideClick(sidebarRef, hideSidebar)
+  
   return (
-    <div className="bg-primary-contrast-text overflow-auto z-[100] w-[95vw] max-w-[280px] min-h-[100dvh] fixed left-0 inset-y-0 sm:sticky pb-[2%] pt-[15%] pl-[8px]">
+    <div ref={sidebarRef}
+      className={`bg-primary-contrast-text overflow-auto z-[100] w-[95vw] max-w-[280px] min-h-[100dvh] fixed left-0 inset-y-0 sm:sticky pb-[2%] pt-[15%] pl-[8px] transition-transform duration-[300ms] ease-in-out ${
+        show ? "translate-x-0" : "translate-x-[-100vw] sm:translate-x-0"
+      }`}
+    >
       <>
         <div className="flex justify-center items-center">
           <LightThemeLogo />
