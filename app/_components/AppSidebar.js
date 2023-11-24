@@ -3,10 +3,19 @@ import Links from "./AppNavLinks"
 import UserAvatarAndName from "./UserAvatarAndName"
 import ChatHistory from "./ChatHistoryList"
 import { LogoutButton } from "./Buttons"
+import { useRef } from "react"
+import useOutsideClick from "../_hooks/useOutsideClick"
 
-export default function SideBar() {
+export default function SideBar({ show, hideSidebar = () => {} }) {
+  const sidebarRef = useRef(null)
+  useOutsideClick(sidebarRef, hideSidebar)
+  
   return (
-    <div className="bg-primary-contrast-text overflow-auto z-[100] w-[95vw] max-w-[280px] min-h-[100dvh] fixed left-0 inset-y-0 sm:sticky pb-[2%] pt-[15%] pl-[8px]">
+    <div ref={sidebarRef}
+      className={`bg-primary-contrast-text overflow-auto z-[100] w-[95vw] max-w-[280px] min-h-[100dvh] fixed left-0 inset-y-0 sm:sticky pb-[2%] pt-[15%] pl-[8px] transition-transform duration-[300ms] ease-in-out ${
+        show ? "translate-x-0" : "translate-x-[-100vw] sm:translate-x-0"
+      }`}
+    >
       <>
         <div className="flex justify-center items-center">
           <LightThemeLogo />
@@ -64,7 +73,7 @@ function RefreshSVG() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_86_2451)">
+      <g clipPath="url(#clip0_86_2451)">
         <path
           d="M13.9719 2.69375C12.5094 1.04375 10.3813 0 8 0C3.58125 0 0 3.58125 0 8H2C2 4.68437 4.68437 2 8 2C9.82812 2 11.45 2.82812 12.5469 4.11875L10.6656 6H16V0.665625L13.9719 2.69375ZM8 14C6.17188 14 4.55 13.1719 3.45312 11.8813L5.33437 10H0V15.3344L2.02813 13.3062C3.49062 14.9562 5.62187 16 8 16C12.4187 16 16 12.4187 16 8H14C14 11.3156 11.3156 14 8 14Z"
           fill="black"

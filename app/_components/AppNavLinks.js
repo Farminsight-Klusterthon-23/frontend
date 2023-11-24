@@ -3,6 +3,48 @@ import NextLink from "next/link"
 import { useMemo } from "react"
 import { usePathname } from "next/navigation"
 
+function NavLink({ children, href, Icon }) {
+  const pathname = usePathname()
+  const isActive = useMemo(() => pathname === href, [pathname, href])
+
+  return (
+    <NextLink
+      className={`flex items-center justify-start gap-x-[15px] capitalize text-base leading-[188%] font-normal ${
+        isActive ? "text-primary-main" : "text-secondary-dark opacity-50"
+      }`}
+      href={href}
+    >
+      <Icon fill={isActive ? "#034732" : "#718096"} /> {children}
+    </NextLink>
+  )
+}
+export default function Links() {
+  return (
+    <ul className="flex flex-col items-start gap-y-[16px]">
+      <li>
+        <NavLink Icon={DashboardIcon} href="/dashboard">
+          dashboard
+        </NavLink>
+      </li>
+      <li>
+        <NavLink Icon={ProduceIcon} href="/produce-listings">
+          Produce Listings
+        </NavLink>
+      </li>
+      <li>
+        <NavLink href="/" Icon={OfflineIcon}>
+          Offline mode
+        </NavLink>
+      </li>
+      <li>
+        <NavLink href="/" Icon={NotificationsIcon}>
+          Notifications
+        </NavLink>
+      </li>
+    </ul>
+  )
+}
+
 function DashboardIcon({ fill }) {
   return (
     <svg
@@ -32,15 +74,15 @@ function ProduceIcon({ fill }) {
       <path
         d="M22 7L12 2L2 7V17L12 22L22 17V7Z"
         stroke="#718096"
-        stroke-width="2"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinejoin="round"
       />
       <path
         d="M2 7L12 12M12 12V22M12 12L22 7M17 4.5L7 9.5"
         stroke="#718096"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
@@ -72,7 +114,7 @@ function NotificationsIcon({ fill }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_120_2426)">
+      <g clipPath="url(#clip0_120_2426)">
         <path
           d="M14.235 19C15.1 19 15.557 20.024 14.98 20.668C14.6052 21.0875 14.1459 21.4229 13.6324 21.6525C13.1188 21.8821 12.5625 22.0005 12 22C11.4375 22.0005 10.8812 21.8821 10.3676 21.6525C9.85409 21.4229 9.39484 21.0875 9.02001 20.668C8.46801 20.052 8.86201 19.089 9.65401 19.007L9.76401 19.001L14.235 19ZM12 2C13.358 2 14.506 2.903 14.875 4.141L14.921 4.312L14.929 4.355C16.0314 4.9769 16.9708 5.8511 17.6702 6.906C18.3697 7.9609 18.8093 9.16648 18.953 10.424L18.981 10.711L19 11V13.931L19.021 14.067C19.1579 14.8038 19.5657 15.4627 20.164 15.914L20.331 16.031L20.493 16.13C21.353 16.617 21.053 17.896 20.116 17.994L20 18H4.00001C2.97201 18 2.61301 16.636 3.50701 16.13C3.88804 15.9144 4.21725 15.618 4.47155 15.2616C4.72584 14.9052 4.89905 14.4974 4.97901 14.067L5.00001 13.924L5.00101 10.954C5.06198 9.64788 5.44217 8.37661 6.10829 7.25147C6.77442 6.12632 7.70617 5.18161 8.82201 4.5L9.07001 4.354L9.08001 4.311C9.22146 3.71303 9.54295 3.17284 10.0011 2.76334C10.4592 2.35384 11.032 2.09473 11.642 2.021L11.824 2.004L12 2Z"
           fill="#718096"
@@ -84,47 +126,5 @@ function NotificationsIcon({ fill }) {
         </clipPath>
       </defs>
     </svg>
-  )
-}
-
-function NavLink({ children, href, Icon }) {
-  const pathname = usePathname()
-  const isActive = useMemo(() => pathname === href, [pathname, href])
-
-  return (
-    <NextLink
-      className={`flex items-center justify-start gap-x-[15px] capitalize text-base leading-[188%] font-normal ${
-        isActive ? "text-primary-main" : "text-secondary-dark opacity-50"
-      }`}
-      href="/"
-    >
-      <Icon fill={isActive ? "#034732" : "#718096"} /> {children}
-    </NextLink>
-  )
-}
-export default function Links() {
-  return (
-    <ul className="flex flex-col items-start gap-y-[16px]">
-      <li>
-        <NavLink Icon={DashboardIcon} href="/dashboard">
-          dashboard
-        </NavLink>
-      </li>
-      <li>
-        <NavLink Icon={ProduceIcon} href="/my-produce">
-          Produce Listings
-        </NavLink>
-      </li>
-      <li>
-        <NavLink href="/" Icon={OfflineIcon}>
-          Offline mode
-        </NavLink>
-      </li>
-      <li>
-        <NavLink href="/" Icon={NotificationsIcon}>
-          Notifications
-        </NavLink>
-      </li>
-    </ul>
   )
 }
