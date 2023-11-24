@@ -8,7 +8,7 @@ export default function AuthenticatedScreensLayout({ children, pageTitle }) {
 
   return (
     <div className="flex bg-primary-contrast-text">
-      <div className>
+      <div>
         <Sidebar show={showSidebar} hideSidebar={() => setShowSidebar(false)} />
       </div>
       <div

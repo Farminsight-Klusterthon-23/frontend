@@ -168,21 +168,35 @@ export function DeepDiveOptions() {
   )
 }
 
-export function InternetConnectedTags() {
+export function ModeTagBtn({ currentMode, mode, Icon, toggleCurrentMode }) {
+  return (
+    <button
+      onClick={() => toggleCurrentMode(mode)}
+      className={`${
+        currentMode === mode ? "cursor-default" : "opacity-20 hover:opacity-80"
+      } text-primary-medium min-w-[150px] bg-white p-3 gap-x-[15px] flex justify-center items-center rounded-[20px] transition-all duration-[300ms]`}
+    >
+      <Icon />
+      {mode}
+    </button>
+  )
+}
+
+export function ModeTags({ currentMode, toggleCurrentMode }) {
   return (
     <div className="flex items-center justify-center text-[1.125rem] font-700 font-pjs">
-      <p
-        className={`text-primary-medium bg-white p-3 gap-x-[10px] flex items-center justify-center tag-drop-shadow rounded-[50px] min-w-[174px]`}
-      >
-        <ChatSvg />
-        Chat
-      </p>
-      <p
-        className={`text-primary-medium min-w-[82px] opacity-20  bg-white p-3 gap-x-[10px] flex   justify-center items-center rounded-[50px]`}
-      >
-        <OfflineSvg />
-        offline
-      </p>
+      <ModeTagBtn
+        currentMode={currentMode}
+        toggleCurrentMode={toggleCurrentMode}
+        Icon={ChatSvg}
+        mode="chat"
+      />
+      <ModeTagBtn
+        currentMode={currentMode}
+        toggleCurrentMode={toggleCurrentMode}
+        Icon={OfflineSvg}
+        mode="offline"
+      />
     </div>
   )
 }

@@ -12,7 +12,7 @@ export function NoProduceDisplay({ show, toggleDisplay = () => {} }) {
         <h1 className="text-center text-[1.2rem] md:text-[1.6rem] text-primary-main">
           You don&apos;t have any listings added yet!
         </h1>
-        <p className="text-base font-[400]">Add a product to your listing</p>
+        <p className="text-base font-[400]">Add a produce to your listing</p>
         <button
           onClick={toggleDisplay}
           className="bg-primary-main text-white text-base py-[16px] px-[12px] rounded-[4px]"
