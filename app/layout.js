@@ -1,11 +1,11 @@
-import { Sora } from 'next/font/google'
-import './globals.css'
+import { Sora } from "next/font/google"
+import "./globals.css"
 
-const sora = Sora({ subsets: ['latin'] })
+const sora = Sora({ subsets: ["latin"] })
 
 export const metadata = {
-  title: 'Farminsights',
-  description: 'Klusterthon 2023',
+  title: "Farminsights",
+  description: "Klusterthon 2023",
 }
 
 export default function RootLayout({ children }) {
