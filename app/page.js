@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
-import Button from "@/components/Button";
-import Navbar from "@/components/Navbar";
+import Button from "@/app/_components/Button";
 import Image from "next/image";
+import Navbar from "./_components/Navbar";
 
 export default function Home() {
   return (
