@@ -96,7 +96,7 @@ function NavLink({ children, href, Icon }) {
       className={`flex items-center justify-start gap-x-[15px] capitalize text-base leading-[188%] font-normal ${
         isActive ? "text-primary-main" : "text-secondary-dark opacity-50"
       }`}
-      href="/"
+      href={href}
     >
       <Icon fill={isActive ? "#034732" : "#718096"} /> {children}
     </NextLink>
@@ -111,7 +111,7 @@ export default function Links() {
         </NavLink>
       </li>
       <li>
-        <NavLink Icon={ProduceIcon} href="/my-produce">
+        <NavLink Icon={ProduceIcon} href="/produce-listings">
           Produce Listings
         </NavLink>
       </li>
