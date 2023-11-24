@@ -11,7 +11,9 @@ export default function AuthenticatedScreensLayout({ children, pageTitle }) {
       <div className>
         <Sidebar show={showSidebar} hideSidebar={() => setShowSidebar(false)} />
       </div>
-      <div className="grow">
+      <div
+        className={`grow ${showSidebar ? "blur-[3px] brightness-[90%]" : ""}`}
+      >
         <AuthenticatedScreensHeader
           toggleNavigation={(e) => setShowSidebar((prev) => !prev)}
           heading={pageTitle}
