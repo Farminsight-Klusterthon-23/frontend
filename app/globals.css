@@ -16,3 +16,7 @@
 .tag-drop-shadow{
   filter: drop-shadow(14px 27px 45px rgba(112, 144, 176, 0.20))
 }
+
+input:focus, textarea:focus, select:focus{
+  outline: 1px solid #034732;
+}

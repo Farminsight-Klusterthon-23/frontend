@@ -6,7 +6,7 @@ export default function AuthHeader({ heading, toggleNavigation }) {
   return (
     <header className="flex items-center justify-between py-[29px] px-2 md:px-4 sticky top-0 bg-primary-contrast-text">
       <h1
-        className={`text-primary-medium ${montserrat.className} text-[1.5rem] font-600`}
+        className={`text-primary-medium ${montserrat.className} text-[1.5rem] font-[600]`}
       >
         {heading}
       </h1>

@@ -11,7 +11,7 @@ export default function ProduceListings() {
     [userProduceList]
   )
   return (
-    <AuthenticatedScreensLayout pageTitle="Home">
+    <AuthenticatedScreensLayout pageTitle="Produce Listing">
       <div className="mt-[-100px] flex flex-col items-center gap-y-[28px] w-[95dvw] sm:w-[95%] max-w-[915px] mx-auto">
         <NoProduceDisplay
           toggleDisplay={() => setShowAddProduceForm(true)}

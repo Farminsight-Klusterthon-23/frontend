@@ -37,7 +37,7 @@ export default function ChatHistoryList() {
         <button className="p-[8px]  opacity-50 rounded-[8px] text-secondary-light text-[0.68rem] text-center font-normal">
           Latest advancements in agricultural robotics
         </button>
-        <button className="p-[8px] opacity-50 hover:cursor-pointer w-fit text-accent-primary font-500 text-[0.75rem] hover:opacity-100 transition-all">
+        <button className="p-[8px] opacity-50 hover:cursor-pointer w-fit text-accent-primary font-[500] text-[0.75rem] hover:opacity-100 transition-all">
           View all history
         </button>
       </li>
