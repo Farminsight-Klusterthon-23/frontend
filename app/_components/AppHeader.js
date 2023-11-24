@@ -2,32 +2,80 @@ import { Montserrat } from "next/font/google"
 
 const montserrat = Montserrat({ subsets: ["latin"] })
 
-export default function AuthHeader({ heading }) {
+export default function AuthHeader({ heading, toggleNavigation }) {
   return (
-    <header className="flex items-center justify-between py-[29px] px-2 md:px-0 sticky top-0 bg-primary-contrast-text">
+    <header className="flex items-center justify-between py-[29px] px-2 md:px-4 sticky top-0 bg-primary-contrast-text">
       <h1
         className={`text-primary-medium ${montserrat.className} text-[1.5rem] font-600`}
       >
         {heading}
       </h1>
+
       <ul className="flex items-center gap-x-[29px]">
-        <li>
+        <li className="flex items-center justify-center">
           <button>
             <NotificationSvg />
           </button>
         </li>
-        <li>
+        <li className="flex items-center justify-center">
           <button>
             <SettingsSvg />
           </button>
         </li>
-        <li>
+        <li className="flex items-center justify-center">
           <button>
-            <NotificationSvg />
+            <SettingsSvg />
+          </button>
+        </li>
+        <li className="flex items-center justify-center">
+          <button onClick={toggleNavigation} className="mt-3 sm:hidden">
+            <HamburgerSvg />
           </button>
         </li>
       </ul>
     </header>
+  )
+}
+
+function HamburgerSvg() {
+  return (
+    <svg
+      width="40"
+      height="40"
+      viewBox="0 0 24.00 24.00"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke="#CCCCCC"
+        stroke-width="0.288"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        {" "}
+        <path
+          d="M4 18H10"
+          stroke="#1B2559"
+          stroke-width="1.584"
+          stroke-linecap="round"
+        ></path>{" "}
+        <path
+          d="M4 12L16 12"
+          stroke="#1B2559"
+          stroke-width="1.584"
+          stroke-linecap="round"
+        ></path>{" "}
+        <path
+          d="M4 6L20 6"
+          stroke="#1B2559"
+          stroke-width="1.584"
+          stroke-linecap="round"
+        ></path>{" "}
+      </g>
+    </svg>
   )
 }
 

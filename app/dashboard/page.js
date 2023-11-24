@@ -106,7 +106,7 @@ function DeepDiveOptions() {
         <SearchIconSvg />
         Deep dive
       </button>
-      <ul className="bg-white absolute w-[25dvmin] max-w-[180px] rounded-[5px] flex flex-col items-start gap-y-[4px] shadow-dropdown-menu">
+      <ul className="bg-white absolute w-[85dvmin] max-w-[180px] rounded-[5px] flex flex-col items-start gap-y-[4px] shadow-dropdown-menu">
         <DeepDiveOptionItem
           heading="Weather report"
           href="/weather"
