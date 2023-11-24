@@ -6,6 +6,7 @@ import {
   WeatherSvg,
   AcademicArticlesSvg,
   ProduceInsightsSvg,
+  SmallArrowSvg,
 } from "./Svgs"
 import NextLink from "next/link"
 import { useState, useRef, useCallback } from "react"
@@ -16,13 +17,18 @@ const montserrat = Montserrat({ subsets: ["latin"] })
 
 export function ChatBoxContainer() {
   const [inputValue, setInputValue] = useState("")
-  return (<div className="w-full relative flex items-center flex-col gap-y-[14px]">
-    <div className="w-full relative">
-      <ChatTextBox value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-      <DeepDiveOptions />
+  return (
+    <div className="w-full relative flex items-center flex-col gap-y-[14px]">
+      <div className="w-full relative">
+        <ChatTextBox
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        <DeepDiveOptions />
+      </div>
+      <SuggestedQuestions submitSelection={(value) => setInputValue(value)} />
     </div>
-    <SuggestedQuestions submitSelection={(value) => setInputValue(value)} />
-  </div>)
+  )
 }
 
 export function ChatTextBox({ value, onChange }) {
@@ -85,8 +91,11 @@ export function SuggestedQuestions({ submitSelection }) {
 
   return (
     <section className="flex items-center flex-col gap-y-[8px] max-w-[714px]">
-      <h2 className="py-[4px] text-[0.75rem] flex gap-x-3">
-        Sample questions to ask <span>&#10151;</span>
+      <h2 className="py-[4px] text-[0.75rem] flex items-center">
+        Sample questions to ask{" "}
+        <span>
+          <SmallArrowSvg />
+        </span>
       </h2>
       <ul className="flex flex-wrap items-center justify-center gap-[4px] text-center">
         <SampleQuestion
@@ -129,8 +138,9 @@ export function DeepDiveOptions() {
         Deep dive
       </button>
       <ul
-        className={`${showDropdown ? "max-h-screen" : "max-h-0"
-          } transition-all overflow-hidden duration-[300ms] ease-in-out bg-white absolute w-[85dvmin] max-w-[180px] rounded-[5px] flex flex-col items-start gap-y-[4px] shadow-dropdown-menu`}
+        className={`${
+          showDropdown ? "max-h-screen" : "max-h-0"
+        } transition-all overflow-hidden duration-[300ms] ease-in-out bg-white absolute w-[85dvmin] max-w-[180px] rounded-[5px] flex flex-col items-start gap-y-[4px] shadow-dropdown-menu`}
       >
         <DeepDiveOptionItem
           heading="Weather report"
