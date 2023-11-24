@@ -74,9 +74,9 @@ export function SearchIconSvg() {
       <path
         d="M21 21.0002L16.657 16.6572M16.657 16.6572C17.3999 15.9143 17.9892 15.0324 18.3912 14.0618C18.7933 13.0911 19.0002 12.0508 19.0002 11.0002C19.0002 9.9496 18.7933 8.90929 18.3913 7.93866C17.9892 6.96803 17.3999 6.08609 16.657 5.34321C15.9141 4.60032 15.0322 4.01103 14.0616 3.60898C13.0909 3.20693 12.0506 3 11 3C9.94942 3 8.90911 3.20693 7.93848 3.60898C6.96785 4.01103 6.08591 4.60032 5.34302 5.34321C3.84269 6.84354 2.99982 8.87842 2.99982 11.0002C2.99982 13.122 3.84269 15.1569 5.34302 16.6572C6.84335 18.1575 8.87824 19.0004 11 19.0004C13.1218 19.0004 15.1567 18.1575 16.657 16.6572Z"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
@@ -149,8 +149,8 @@ export function ChatSvg() {
           y2="39.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FFF1F1" />
-          <stop offset="1" stop-color="#FD9797" />
+          <stop stopColor="#FFF1F1" />
+          <stop offset="1" stopColor="#FD9797" />
         </linearGradient>
       </defs>
     </svg>
@@ -188,9 +188,9 @@ export function OfflineSvg() {
           width="92.9"
           height="97.9"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -224,20 +224,47 @@ export function OfflineSvg() {
           y2="39.5"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#FBFBFF" />
-          <stop offset="1" stop-color="#CACAFF" />
+          <stop stopColor="#FBFBFF" />
+          <stop offset="1" stopColor="#CACAFF" />
         </linearGradient>
       </defs>
     </svg>
   )
 }
 
-
-export function SmallArrowSvg(){
+export function SmallArrowSvg() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.2101 8.70956L14.8001 11.2996C14.8928 11.3921 14.9663 11.502 15.0165 11.6229C15.0667 11.7439 15.0925 11.8736 15.0925 12.0046C15.0925 12.1355 15.0667 12.2652 15.0165 12.3862C14.9663 12.5072 14.8928 12.617 14.8001 12.7096L12.2101 15.2996C11.5801 15.9296 10.5001 15.4796 10.5001 14.5896V9.40956C10.5001 8.51956 11.5801 8.07956 12.2101 8.70956Z" fill="black"/>
-</svg>
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.2101 8.70956L14.8001 11.2996C14.8928 11.3921 14.9663 11.502 15.0165 11.6229C15.0667 11.7439 15.0925 11.8736 15.0925 12.0046C15.0925 12.1355 15.0667 12.2652 15.0165 12.3862C14.9663 12.5072 14.8928 12.617 14.8001 12.7096L12.2101 15.2996C11.5801 15.9296 10.5001 15.4796 10.5001 14.5896V9.40956C10.5001 8.51956 11.5801 8.07956 12.2101 8.70956Z"
+        fill="black"
+      />
+    </svg>
+  )
+}
 
+export function FileSvg() {
+  return (
+    <svg
+      width="56"
+      height="56"
+      viewBox="0 0 56 56"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7 35.0003H49M7 44.3337H35M7 16.3337H25.6667M7 25.667H25.6667M45.2667 25.667H38.7333C37.4264 25.667 36.7731 25.667 36.274 25.4127C35.8349 25.1889 35.4781 24.8321 35.2543 24.393C35 23.8939 35 23.2404 35 21.9337V15.4003C35 14.0935 35 13.4401 35.2543 12.941C35.4781 12.502 35.8349 12.145 36.274 11.9213C36.7731 11.667 37.4264 11.667 38.7333 11.667H45.2667C46.5736 11.667 47.2269 11.667 47.726 11.9213C48.1651 12.145 48.5219 12.502 48.7457 12.941C49 13.4401 49 14.0935 49 15.4003V21.9337C49 23.2404 49 23.8939 48.7457 24.393C48.5219 24.8321 48.1651 25.1889 47.726 25.4127C47.2269 25.667 46.5736 25.667 45.2667 25.667Z"
+        stroke="#034732"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }
