@@ -16,7 +16,7 @@ export function AuthSubmitButton({ children }) {
   return (
     <button
       type="submit"
-      className="text-center px-[10px] py-[12px] w-full bg-accent-primary rounded-[8px]"
+      className="text-center px-[10px] py-[12px] w-full bg-accent-primary text-white rounded-[8px]"
     >
       {children}
     </button>
