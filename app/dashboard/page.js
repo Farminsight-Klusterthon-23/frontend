@@ -19,7 +19,7 @@ export default function DashBoard() {
       <div className="flex flex-col items-center gap-y-[28px] w-[95dvw] sm:w-[95%] max-w-[915px] mx-auto">
         <InternetConnectedTags />
         <h1 className="text-center text-[2rem] md:text-[3rem] text-primary-main">
-          Welcome to farm Insight
+          Welcome to FarmInsight
         </h1>
         <div className="w-full relative flex items-center flex-col gap-y-[14px]">
           <div className="w-full relative">
@@ -106,7 +106,7 @@ function DeepDiveOptions() {
         <SearchIconSvg />
         Deep dive
       </button>
-      <ul className="bg-white absolute min-w-[12.6dvw] rounded-[5px] flex flex-col items-start gap-y-[4px] shadow-dropdown-menu">
+      <ul className="bg-white absolute w-[25dvmin] max-w-[180px] rounded-[5px] flex flex-col items-start gap-y-[4px] shadow-dropdown-menu">
         <DeepDiveOptionItem
           heading="Weather report"
           href="/weather"
