@@ -19,6 +19,7 @@ module.exports = {
       boxShadow: {
         "dashboard-sidenav": "0px 17px 40px 4px rgba(112, 144, 176, 0.11)",
         "dropdown-menu": "0px 4px 25px 0px rgba(0, 0, 0, 0.10)",
+        "ai-chat":"14px 27px 45px 4px rgba(112, 144, 176, 0.20)"
       },
       colors: {
         primary: {
