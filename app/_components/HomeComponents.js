@@ -1,8 +1,8 @@
-import Link from "next/link"
-import { GradientBar } from "./HomeSvgs"
+import Link from "next/link";
+import { GradientBar } from "./HomeSvgs";
 
 const roundedBtnClasses =
-  "px-[16px] md:px-[24px] py-[8px] text-center border border-white text-white text-[1rem] md:text-[1.125rem] text-center font-[300] leading-[230%] rounded-[24px]"
+  "px-[16px] md:px-[24px] py-[8px] text-center border border-white text-white text-[1rem] md:text-[1.125rem] text-center font-[300] leading-[230%] rounded-[24px]";
 
 function HeroTag({ children }) {
   return (
@@ -11,13 +11,13 @@ function HeroTag({ children }) {
     >
       {children}
     </span>
-  )
+  );
 }
 
 export function HeroSection() {
   return (
     <main className="flex justify-center items-center sm:justify-around sm:items-stretch bg-[url(/vector-bg.png)] bg-no-repeat bg-bottom lg:grid grid-cols-3 min-h-[100dvh]">
-      <div className="col-span-2 row-start-1 row-span-2 col-start-1 self-center pl-[5vw] relative z-20">
+      <div className="col-span-2 row-start-1 row-span-2 col-start-1 self-center pl-[5vw] relative">
         <h1 className="text-[3rem] md:text-[4rem] sm:text-[4.5rem] w-full max-w-[786px] text-white text-left leading-[131%]]">
           Empowering Farmers with Intelligent Agricultural Insights
         </h1>
@@ -53,7 +53,7 @@ export function HeroSection() {
         </div>
       </div>
     </main>
-  )
+  );
 }
 
 function FeatureItem({ heading, children, count }) {
@@ -69,7 +69,7 @@ function FeatureItem({ heading, children, count }) {
       </h3>
       <p className="font-montserrat leading-[184%] font-[400]">{children}</p>
     </li>
-  )
+  );
 }
 
 export function HeroTwo() {
@@ -107,7 +107,7 @@ export function HeroTwo() {
         </ul>
       </div>
     </section>
-  )
+  );
 }
 
 export function HomeThirdSection() {
@@ -133,7 +133,7 @@ export function HomeThirdSection() {
         Get Started and start making informed decisions
       </Link>
     </section>
-  )
+  );
 }
 
 export function HomeFourthSection() {
@@ -168,7 +168,7 @@ export function HomeFourthSection() {
         </Link>
       </div>
     </section>
-  )
+  );
 }
 
 export function HomeLastSection() {
@@ -191,5 +191,5 @@ export function HomeLastSection() {
         </Link>
       </div>
     </section>
-  )
+  );
 }
