@@ -1,14 +1,13 @@
-"use client";
-import Image from "next/image";
-import Navbar from "./_components/Navbar";
+import Image from "next/image"
+import Navbar from "./_components/Navbar"
 
 import {
   HeroSection,
   HeroTwo,
+  HomeThirdSection,
   HomeFourthSection,
   HomeLastSection,
-  HomeThirdSection,
-} from "./_components/HomeComponents";
+} from "./_components/HomeComponents"
 export default function Home() {
   return (
     <>
@@ -28,5 +27,5 @@ export default function Home() {
         />
       </div>
     </>
-  );
+  )
 }
