@@ -1,10 +1,47 @@
+"use client"
 import Image from "next/image";
 import Signup from "../../public/Signup.png";
-import React from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 
 function SignUp() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+
+  const [errors, setErrors] = useState({})
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormData({
+      ...formData, [name]: value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    console.log('handle submit clicked')
+    e.preventDefault()
+      const validationErrors = {}
+      if(!formData.email.trim()) {
+        validationErrors.email = 'email is required'
+      } else if(!/\S+@\S+\.\S+/.test(formData.email)) {
+        validationErrors.email = 'email is not valid'
+      }
+      
+      if(!formData.password.trim()) {
+        validationErrors.password = 'password is required'
+      } else if (formData.password.length < 6) {
+        validationErrors.password = 'password should be at least 6 char'
+      }
+
+      setErrors(validationErrors)
+
+      if(Object.keys(validationErrors).length === 0) {
+        alert('form submitted succefully')
+      }
+  }
+
   return (
     <div className="w-full h-full bg-[#034732] flex flex-col items-center justify-around md:flex-row">
       <div className="w-[50%] flex flex-col items-center justify-center">
@@ -26,7 +63,7 @@ function SignUp() {
           Create your own account for personalized farming insights.
         </h2>
         <div>
-          <form className="mx-3 md:mx-12">
+          <form onSubmit={handleSubmit} className="mx-3 md:mx-12">
             <div className="relative mb-6">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                 <svg
@@ -48,9 +85,12 @@ function SignUp() {
               </div>
               <input
                 type="text"
+                name='email'
+                onChange={handleChange}
                 className="bg-gray-50  text-gray-600 text-sm rounded-sm focus:ring-blue-200 focus:border-blue-200 block w-full ps-10 p-2.5"
                 placeholder="Enter your email address"
               />
+              {errors.email && <span>{errors.email}</span>}
             </div>
 
             {/* //password */}
@@ -71,14 +111,17 @@ function SignUp() {
               </div>
               <input
                 type="password"
+                name='password'
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-600 text-sm rounded-sm focus:ring-blue-200 focus:border-blue-200 block w-full ps-10 p-2.5"
                 placeholder="Password "
               />
+              {errors.password && <span>{errors.password}</span>}
             </div>
 
             {/* button */}
 
-            <button className="bg-[#f5a0a0] w-full rounded-lg py-2 text-white mb-2">
+            <button type="submit" className="bg-[#f5a0a0] w-full rounded-lg py-2 text-white mb-2">
               Continue
             </button>
 
@@ -109,7 +152,7 @@ function SignUp() {
                   />
                 </svg>
               </div>
-              <button className="bg-white w-full text-gray-600 rounded-lg py-2 mt-2 text-sm">
+              <button type="submit" className="bg-white w-full text-gray-600 rounded-lg py-2 mt-2 text-sm">
                 Sign In with Google
               </button>
             </div>

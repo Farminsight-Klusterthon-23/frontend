@@ -1,9 +1,46 @@
+"use client"
 import Image from "next/image";
 import LoginImg from "../../public/Login.png";
-import React from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 function Login() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
+
+  const [errors, setErrors] = useState({})
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormData({
+      ...formData, [name]: value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    console.log('handle submit clicked')
+    e.preventDefault()
+      const validationErrors = {}
+      if(!formData.email.trim()) {
+        validationErrors.email = 'email is required'
+      } else if(!/\S+@\S+\.\S+/.test(formData.email)) {
+        validationErrors.email = 'email is not valid'
+      }
+      
+      if(!formData.password.trim()) {
+        validationErrors.password = 'password is required'
+      } else if (formData.password.length < 6) {
+        validationErrors.password = 'password should be at least 6 char'
+      }
+
+      setErrors(validationErrors)
+
+      if(Object.keys(validationErrors).length === 0) {
+        alert('form submitted succefully')
+      }
+  }
   return (
     <div className="w-full h-full bg-[#034732] flex flex-col items-center justify-around md:flex-row">
       <div className="w-[50%] flex flex-col items-center justify-center">
@@ -25,7 +62,7 @@ function Login() {
           Great to see you again!!
         </h2>
         <div>
-          <form className="">
+          <form onSubmit={handleSubmit} className="">
             <div className="relative mb-6">
               <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                 <svg
@@ -47,9 +84,12 @@ function Login() {
               </div>
               <input
                 type="text"
+                name='email'
+                onChange={handleChange}
                 className="bg-gray-50  text-gray-600 text-sm rounded-sm focus:ring-blue-200 focus:border-blue-200 block w-full ps-10 p-2.5"
                 placeholder="Enter your email address"
               />
+              {errors.email && <span>{errors.email}</span>}
             </div>
 
             {/* //password */}
@@ -69,10 +109,13 @@ function Login() {
                 </svg>
               </div>
               <input
-                type="password"
+                  type="password"
+                  name='password'
+                  onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-600 text-sm rounded-sm focus:ring-blue-200 focus:border-blue-200 block w-full ps-10 p-2.5"
                 placeholder="Password "
               />
+              {errors.password && <span>{errors.password}</span>}
             </div>
 
             {/* button */}
