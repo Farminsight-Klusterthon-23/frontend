@@ -32,16 +32,22 @@ export default function Login() {
     async (e) => {
       e.preventDefault()
       const response = await errorHandler(loginUser)("users/login", formData)
+      console.log(response, "kjhcvbnm")
       if (response.status !== 200) setErrorMsg(response.message)
-      else router.push("/dashboard")
+      else {
+        localStorage.setItem(process.env.NEXT_PUBLIC_LS_AUTH_KEY, response.token)
+        router.push("/dashboard")
+      }
     },
     [errorHandler, formData, loginUser, router]
   )
 
   useEffect(() => {
-    const errMsgTimeout = errorMsg.length > 0 && setTimeout(() => {
-      setErrorMsg("")
-    }, 4000)
+    const errMsgTimeout =
+      errorMsg.length > 0 &&
+      setTimeout(() => {
+        setErrorMsg("")
+      }, 4000)
     return () => {
       clearTimeout(errMsgTimeout)
     }
