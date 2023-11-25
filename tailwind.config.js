@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        "bounce-short": "bounce 80ms linear 5",
+      },
       backgroundImage: {
         "home-gradient":
           "linear-gradient(162deg, rgba(3,91,52,1) 0%, rgba(1,133,74,1) 34%, rgba(41,94,61,1) 63%, rgba(241,109,107,0.7875744047619048) 80%, rgba(3,91,52,1) 100%)",
