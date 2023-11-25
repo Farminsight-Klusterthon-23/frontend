@@ -15,6 +15,7 @@ export const LogoutButton = ({ children }) => {
     const logoutSuccess = await errorHandler(logoutUser)("users/logout")
     if (logoutSuccess.status === 200) {
       dispatch(logout())
+      localStorage.removeItem(process.env.NEXT_PUBLIC_LS_AUTH_KEY)
       router.push("/")
     }
   }, [dispatch, errorHandler, logoutUser, router])

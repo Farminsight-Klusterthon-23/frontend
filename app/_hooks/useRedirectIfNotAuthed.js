@@ -10,9 +10,14 @@ export default function useRedirectIfNotAuthed({
   const fetchUser = useFetch({ method: "GET" })
 
   const checkIfIsLoggedIn = useCallback(async () => {
+    if (localStorage.getItem(process.env.NEXT_PUBLIC_LS_AUTH_KEY) === null)
+      return redirectToLogin()
     const data = await errorHandler(fetchUser)("users/me")
     if (data.statusCode === 200 || data.status === 200) redirectToDashboard()
-    else redirectToLogin()
+    else {
+      localStorage.removeItem(process.env.NEXT_PUBLIC_LS_AUTH_KEY)
+      redirectToLogin()
+    }
   }, [fetchUser, errorHandler, redirectToDashboard, redirectToLogin])
 
   useEffect(() => {
