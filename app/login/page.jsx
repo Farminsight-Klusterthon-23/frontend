@@ -32,10 +32,12 @@ export default function Login() {
     async (e) => {
       e.preventDefault()
       const response = await errorHandler(loginUser)("users/login", formData)
-      console.log(response, "kjhcvbnm")
       if (response.status !== 200) setErrorMsg(response.message)
       else {
-        localStorage.setItem(process.env.NEXT_PUBLIC_LS_AUTH_KEY, response.token)
+        localStorage.setItem(
+          process.env.NEXT_PUBLIC_LS_AUTH_KEY,
+          response.token
+        )
         router.push("/dashboard")
       }
     },
