@@ -163,7 +163,7 @@ export default function OnBoarding() {
               onChange: handleChange,
               required: true,
               hasError: formErrors.lastName,
-              type: "password"
+              type: "text"
             }}
           />
           <div>

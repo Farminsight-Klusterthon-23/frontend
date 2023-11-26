@@ -70,6 +70,7 @@ export default function Signup() {
                   value: formData.password,
                   onChange: handleChange,
                   required: true,
+                  type: "password"
                 }}
               />
               <AuthSubmitButton>Continue</AuthSubmitButton>
