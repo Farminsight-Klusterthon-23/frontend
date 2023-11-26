@@ -21,6 +21,7 @@ export default function UserProvider({ children }) {
       externalPages.includes(pathname) &&
       pathname !== "/" &&
       router.push("/dashboard"),
+    pathname
   })
   useEffect(() => {
     data === null && user !== null && dispatch(setUser(user))

@@ -1,63 +1,68 @@
-"use client"
-import { EmailSvg, PasswordSvg } from "../_components/AuthSvgs"
-import AuthLayout from "../_components/AuthLayout"
-import { AuthInput, AuthSubmitButton } from "../_components/AuthInputs"
-import { useState, useEffect, useCallback } from "react"
-import useFetch from "../_request/useFetch"
-import useRequestErrorHandler from "../_request/useRequestErrorHandler"
-import { useRouter } from "next/navigation"
-import Loader from "../_components/Loader"
+"use client";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { AuthInput, AuthSubmitButton } from "../_components/AuthInputs";
+import AuthLayout from "../_components/AuthLayout";
+import { EmailSvg, PasswordSvg } from "../_components/AuthSvgs";
+import Loader from "../_components/Loader";
+import { setUser } from "../_redux/user";
+import useFetch from "../_request/useFetch";
+import useRequestErrorHandler from "../_request/useRequestErrorHandler";
 
 const loginScreenText =
-  "Log in to your Farm insight account and pick up right where you left off. Your farm's success story continues with real-time insights, weather updates, and expert advice. Let's grow together!"
+  "Log in to your Farm insight account and pick up right where you left off. Your farm's success story continues with real-time insights, weather updates, and expert advice. Let's grow together!";
 
 export default function Login() {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const { error, errorHandler } = useRequestErrorHandler()
-  const loginUser = useFetch({ method: "POST" })
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const { error, errorHandler } = useRequestErrorHandler();
+  const loginUser = useFetch({ method: "POST" });
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
-  const [errorMsg, setErrorMsg] = useState("")
+  });
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = useCallback(
     async (e) => {
       setLoading(true)
       e.preventDefault()
       const response = await errorHandler(loginUser)("users/login", formData)
-      if (response.status !== 200) setErrorMsg(response.message)
+      if (response?.status !== 200)
+        setErrorMsg(response?.message || "An internal error occurred")
       else {
         localStorage.setItem(
           process.env.NEXT_PUBLIC_LS_AUTH_KEY,
           response.token
-        )
-        return router.push("/dashboard")
+        );
+        dispatch(setUser(response.user));
+        return router.push("/dashboard");
       }
-      setLoading(false)
+      setLoading(false);
     },
-    [errorHandler, formData, loginUser, router]
-  )
+    [errorHandler, formData, loginUser, dispatch, router]
+  );
 
   useEffect(() => {
     const errMsgTimeout =
       errorMsg.length > 0 &&
       setTimeout(() => {
-        setErrorMsg("")
-      }, 4000)
+        setErrorMsg("");
+      }, 4000);
     return () => {
-      clearTimeout(errMsgTimeout)
-    }
-  }, [errorMsg])
+      clearTimeout(errMsgTimeout);
+    };
+  }, [errorMsg]);
 
   return (
     <>
@@ -107,5 +112,5 @@ export default function Login() {
         </AuthLayout>
       </div>
     </>
-  )
+  );
 }

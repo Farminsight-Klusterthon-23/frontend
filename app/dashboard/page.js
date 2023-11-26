@@ -4,8 +4,16 @@ import { ChatBoxContainer } from "./Components"
 import { ModeTogglerHeader } from "../_components/OfflineAndChatModeTogglerHeader"
 import { useState } from "react"
 import { QuestionAndAnswer } from "../_components/ChatComponents"
+import useSocketManager from "../_hooks/useSocketManager"
+import { messageEvents } from "../_socket/events"
 
 export default function DashBoard() {
+  useSocketManager({
+    namespace: "/messages",
+    events: messageEvents,
+    eventHandlers: {},
+  })
+
   return (
     <AuthenticatedScreensLayout
       pageTitle="Home"
