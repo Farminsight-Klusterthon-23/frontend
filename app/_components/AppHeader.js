@@ -1,6 +1,6 @@
-import { Montserrat } from "next/font/google"
+import { Montserrat } from "next/font/google";
 
-const montserrat = Montserrat({ subsets: ["latin"] })
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function AuthHeader({ heading, toggleNavigation }) {
   return (
@@ -22,11 +22,7 @@ export default function AuthHeader({ heading, toggleNavigation }) {
             <SettingsSvg />
           </button>
         </li>
-        <li className="flex items-center justify-center">
-          <button>
-            <SettingsSvg />
-          </button>
-        </li>
+
         <li className="flex items-center justify-center">
           <button onClick={toggleNavigation} className="mt-3 sm:hidden">
             <HamburgerSvg />
@@ -34,7 +30,7 @@ export default function AuthHeader({ heading, toggleNavigation }) {
         </li>
       </ul>
     </header>
-  )
+  );
 }
 
 function HamburgerSvg() {
@@ -75,7 +71,7 @@ function HamburgerSvg() {
         ></path>
       </g>
     </svg>
-  )
+  );
 }
 
 function NotificationSvg() {
@@ -94,7 +90,7 @@ function NotificationSvg() {
         fill="black"
       />
     </svg>
-  )
+  );
 }
 
 function MoonSvg() {
@@ -113,7 +109,7 @@ function MoonSvg() {
         fill="white"
       />
     </svg>
-  )
+  );
 }
 
 function SettingsSvg() {
@@ -138,5 +134,5 @@ function SettingsSvg() {
         fill="black"
       />
     </svg>
-  )
+  );
 }
