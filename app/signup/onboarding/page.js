@@ -92,6 +92,7 @@ export default function OnBoarding() {
         longitude: formData.location.lng,
       })
       setLoading(Boolean(response) === true ? false : false)
+      if(!response) return 
       if (response.status !== 200) setErrorMsg(response.message)
       else {
         dispatch(setUser(response.user))
