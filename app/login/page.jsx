@@ -6,12 +6,14 @@ import { useState, useEffect, useCallback } from "react"
 import useFetch from "../_request/useFetch"
 import useRequestErrorHandler from "../_request/useRequestErrorHandler"
 import { useRouter } from "next/navigation"
+import Loader from "../_components/Loader"
 
 const loginScreenText =
   "Log in to your Farm insight account and pick up right where you left off. Your farm's success story continues with real-time insights, weather updates, and expert advice. Let's grow together!"
 
 export default function Login() {
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
   const { error, errorHandler } = useRequestErrorHandler()
   const loginUser = useFetch({ method: "POST" })
   const [formData, setFormData] = useState({
@@ -30,6 +32,7 @@ export default function Login() {
 
   const handleSubmit = useCallback(
     async (e) => {
+      setLoading(true)
       e.preventDefault()
       const response = await errorHandler(loginUser)("users/login", formData)
       if (response.status !== 200) setErrorMsg(response.message)
@@ -38,8 +41,9 @@ export default function Login() {
           process.env.NEXT_PUBLIC_LS_AUTH_KEY,
           response.token
         )
-        router.push("/dashboard")
+        return router.push("/dashboard")
       }
+      setLoading(false)
     },
     [errorHandler, formData, loginUser, router]
   )
@@ -56,46 +60,52 @@ export default function Login() {
   }, [errorMsg])
 
   return (
-    <div className="h-screen w-screen bg-primary-main flex items-center justify-around">
-      <AuthLayout
-        mode="login"
-        bodyText={loginScreenText}
-        headingText={"Great to see you again!"}
-      >
-        <div>
-          {(errorMsg.length > 0 || error) && (
-            <p className="text-red-500 animate-bounce-short text-center px-2 py rounded-sm bg-white/80 mx-auto w-fit mb-4">
-              {error?.message || errorMsg}
-            </p>
-          )}
-          <form onSubmit={handleSubmit} className="flex flex-col gap-y-[16px]">
-            <AuthInput
-              Icon={EmailSvg}
-              inputProps={{
-                name: "email",
-                placeholder: "Enter your email",
-                value: formData.email,
-                onChange: handleChange,
-                required: true,
-                type: "email",
-              }}
-            />
-            <AuthInput
-              Icon={PasswordSvg}
-              inputProps={{
-                name: "password",
-                placeholder: "Password",
-                value: formData.password,
-                onChange: handleChange,
-                required: true,
-                min: 6,
-                type: "password",
-              }}
-            />
-            <AuthSubmitButton>Continue</AuthSubmitButton>
-          </form>
-        </div>
-      </AuthLayout>
-    </div>
+    <>
+      <Loader loading={loading} />
+      <div className="h-screen w-screen bg-primary-main flex items-center justify-around">
+        <AuthLayout
+          mode="login"
+          bodyText={loginScreenText}
+          headingText={"Great to see you again!"}
+        >
+          <div>
+            {(errorMsg.length > 0 || error) && (
+              <p className="text-red-500 animate-bounce-short text-center px-2 py rounded-sm bg-white/80 mx-auto w-fit mb-4">
+                {errorMsg || (error !== null && "An internal error occurred!")}
+              </p>
+            )}
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col gap-y-[16px]"
+            >
+              <AuthInput
+                Icon={EmailSvg}
+                inputProps={{
+                  name: "email",
+                  placeholder: "Enter your email",
+                  value: formData.email,
+                  onChange: handleChange,
+                  required: true,
+                  type: "email",
+                }}
+              />
+              <AuthInput
+                Icon={PasswordSvg}
+                inputProps={{
+                  name: "password",
+                  placeholder: "Password",
+                  value: formData.password,
+                  onChange: handleChange,
+                  required: true,
+                  min: 6,
+                  type: "password",
+                }}
+              />
+              <AuthSubmitButton>Continue</AuthSubmitButton>
+            </form>
+          </div>
+        </AuthLayout>
+      </div>
+    </>
   )
 }

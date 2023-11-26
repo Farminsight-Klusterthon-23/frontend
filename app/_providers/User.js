@@ -5,7 +5,7 @@ import useRedirectIfNotAuthed from "../_hooks/useRedirectIfNotAuthed"
 import { setUser } from "../_redux/user"
 import { useEffect } from "react"
 
-const externalPages = ["/", "/login", "/signup"]
+const externalPages = ["/login", "/signup", "/signup/onboarding"]
 
 export default function UserProvider({ children }) {
   const { data } = useSelector((store) => store.user)
@@ -14,9 +14,13 @@ export default function UserProvider({ children }) {
   const dispatch = useDispatch()
   const user = useRedirectIfNotAuthed({
     redirectToLogin: () =>
-      !externalPages.includes(pathname) && router.push("/login"),
+      !externalPages.includes(pathname) &&
+      pathname !== "/" &&
+      router.push("/login"),
     redirectToDashboard: () =>
-      externalPages.includes(pathname) && router.push("/dashboard"),
+      externalPages.includes(pathname) &&
+      pathname !== "/" &&
+      router.push("/dashboard"),
   })
   useEffect(() => {
     data === null && user !== null && dispatch(setUser(user))
