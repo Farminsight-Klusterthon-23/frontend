@@ -13,7 +13,7 @@ export default function useSocket({
   const [token, setToken] = useState(null)
   const socket = useMemo(
     () =>
-      io(`http://localhost:3000${namespace}`, {
+      io(`${process.env.NEXT_PUBLIC_FARMINSIGHTS_API_SOCKET}${namespace}`, {
         auth: {
           token,
         },
