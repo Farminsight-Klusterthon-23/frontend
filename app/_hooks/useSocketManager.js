@@ -8,7 +8,13 @@ export default function useSocketManager({
 }) {
   const [socket, disconnect] = useSocket({ namespace })
 
-  useEffect(() => {})
+  useEffect(() => {
+    events.map(ev => socket.on(ev, eventHandlers[ev]))
+
+    return () => {
+      events.map(ev => socket.off(ev, eventHandlers[ev]))
+    }
+  }, [events, eventHandlers, socket])
 
   return socket
 }
