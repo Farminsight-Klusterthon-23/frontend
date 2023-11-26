@@ -8,7 +8,7 @@ import useSocketManager from "../_hooks/useSocketManager"
 import { messagingEventsList } from "../_socket/events"
 import { messagingActions, messagingEvents } from "../_redux/messaging.js"
 import useGenerateEventHandlers from "../_hooks/useGenerateEventHandlers"
-import { useSelector, useDispatch } from "react-redux" 
+import { useSelector, useDispatch } from "react-redux"
 
 export default function DashBoard() {
   const messagingEventHandlers = useGenerateEventHandlers(
@@ -35,9 +35,14 @@ export default function DashBoard() {
 }
 
 function ChatMode({ socket }) {
-  const { questionAsked, answerGiven, loading } = useSelector(store => store.messaging)
+  const { questionAsked, answerGiven, loading } = useSelector(
+    (store) => store.messaging
+  )
   const [question, setQuestion] = useState(questionAsked)
-  const hasAskedAQuestion = useMemo(() => questionAsked.length > 0, [questionAsked.length])
+  const hasAskedAQuestion = useMemo(
+    () => questionAsked.length > 0,
+    [questionAsked.length]
+  )
   const dispatch = useDispatch()
 
   if (hasAskedAQuestion)
@@ -46,7 +51,10 @@ function ChatMode({ socket }) {
         question={questionAsked}
         answer={answerGiven}
         loading={loading}
-        resetMode={() => dispatch(messagingActions.resetQuestionAndAnswer())}
+        resetMode={() => {
+          setQuestion("")
+          dispatch(messagingActions.resetQuestionAndAnswer())
+        }}
       />
     )
   return (
@@ -56,7 +64,7 @@ function ChatMode({ socket }) {
       </h1>
       <ChatBoxContainer
         handleSubmit={() => {
-          socket.emit(messagingEvents.question, {question})
+          socket.emit(messagingEvents.question, { question })
           dispatch(messagingActions.updateLoading(true))
           dispatch(messagingActions.updateQuestionAsked(question))
         }}
