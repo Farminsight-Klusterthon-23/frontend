@@ -58,3 +58,67 @@ export function AiSvg() {
     </svg>
   )
 }
+
+export function PageLoadingSvg() {
+  return (
+    <>
+      <svg
+        width=""
+        height="150"
+        viewBox="0 0 377 150"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="377" height="37" rx="18.5" fill="#D9D9D9" />
+        <rect y="49" width="217" height="37" rx="18.5" fill="#D9D9D9" />
+        <rect x="61" y="113" width="317" height="37" rx="18.5" fill="#D9D9D9" />
+      </svg>
+    </>
+  )
+}
+export function DeleteIcon() {
+  return (
+    <>
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M13.6673 4H2.33398M12.556 5.66667L12.2493 10.2667C12.1313 12.036 12.0727 12.9207 11.496 13.46C10.9193 14 10.0327 14 8.25865 14H7.74265C5.96932 14 5.08265 14 4.50532 13.46C3.92865 12.9207 3.86998 12.036 3.75198 10.2667L3.44532 5.66667"
+          stroke="#E41717"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          opacity="0.5"
+          d="M4.33398 4H4.40732C4.67562 3.99314 4.9356 3.90548 5.15327 3.74847C5.37093 3.59147 5.53615 3.37243 5.62732 3.12L5.64998 3.05133L5.71465 2.85733C5.76998 2.69133 5.79798 2.60867 5.83465 2.538C5.90679 2.39959 6.01032 2.27999 6.13697 2.18877C6.26361 2.09755 6.40985 2.03724 6.56398 2.01267C6.64198 2 6.72932 2 6.90398 2H9.09732C9.27198 2 9.35932 2 9.43732 2.01267C9.59145 2.03724 9.73769 2.09755 9.86433 2.18877C9.99098 2.27999 10.0945 2.39959 10.1667 2.538C10.2033 2.60867 10.2313 2.69133 10.2867 2.85733L10.3513 3.05133C10.4358 3.33218 10.6105 3.57734 10.8484 3.74884C11.0863 3.92034 11.3742 4.00862 11.6673 4"
+          stroke="#E41717"
+          strokeWidth="1.5"
+        />
+      </svg>
+    </>
+  )
+}
+
+export function BackArrow() {
+  return (
+    <svg
+      width="16"
+      height="14"
+      viewBox="0 0 16 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1 7L7 1M1 7L7 13M1 7H15"
+        stroke="black"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
