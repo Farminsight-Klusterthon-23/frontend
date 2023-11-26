@@ -14,7 +14,7 @@ function Location() {
           <label>
             <select
               type="select"
-              className="bg-[#043023] text-white p-3 rounded-md border border-solid border-white md:ml-18"
+              className="bg-[#043023] text-white p-3 my-2 rounded-md border border-solid border-white md:ml-32 "
             >
                 <LocationSvg />
               <option selected>Where are you located</option>
