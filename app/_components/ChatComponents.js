@@ -1,5 +1,5 @@
-import Image from "next/image"
-import { DefaultUserAvatar, AIAvatar } from "./ChatSvgs"
+import Image from "next/image";
+import { AIAvatar, DefaultUserAvatar } from "./ChatSvgs";
 
 export function AIMessage({ text }) {
   return (
@@ -9,7 +9,7 @@ export function AIMessage({ text }) {
         <cite>Farminsight AI</cite>
       </footer>
     </blockquote>
-  )
+  );
 }
 
 export function UserMessage({ text, userAvatar = "" }) {
@@ -27,11 +27,11 @@ export function UserMessage({ text, userAvatar = "" }) {
         <cite className="absolute z-100 right-[1000vw]">Farminsight AI</cite>
       </footer>
     </blockquote>
-  )
+  );
 }
 
 export function Conversation() {
-  return <ul></ul>
+  return <ul></ul>;
 }
 
 export function UserQuestion({ text, userAvatar = "" }) {
@@ -53,7 +53,7 @@ export function UserQuestion({ text, userAvatar = "" }) {
         )}
       </footer>
     </blockquote>
-  )
+  );
 }
 
 export function AIAnswer({ text, loading }) {
@@ -78,12 +78,12 @@ export function AIAnswer({ text, loading }) {
         <AIAvatar />
       </footer>
     </blockquote>
-  )
+  );
 }
 
 export function ThinkingElement() {
   const dotClassName =
-    "block w-[15px] h-[15px] rounded-full bg-primary-main/40 animate-pulse"
+    "block w-[15px] h-[15px] rounded-full bg-primary-main/40 animate-pulse";
   return (
     <div className="flex w-full items-center gap-x-7">
       <span className={dotClassName} />
@@ -94,10 +94,16 @@ export function ThinkingElement() {
       <span className={`${dotClassName} delay-[360ms]`} />
       <span className={`${dotClassName} delay-[480ms]`} />
     </div>
-  )
+  );
 }
 
-export function QuestionAndAnswer({ question, answer, resetMode, loading }) {
+export function QuestionAndAnswer({
+  question,
+  answer,
+  resetMode,
+  saveOffline,
+  loading,
+}) {
   return (
     <section className="w-full">
       <div className="flex flex-col gap-y-[24px] w-full">
@@ -112,10 +118,13 @@ export function QuestionAndAnswer({ question, answer, resetMode, loading }) {
         >
           Ask another question
         </button>
-        <button className="flex items-center justify-center font-montserrat font-[500] text-[0.875rem] border border-primary-main py-[18px] px-[16px] text-primary-medium bg-transparent rounded-[45px]">
+        <button
+          onClick={saveOffline}
+          className="flex items-center justify-center font-montserrat font-[500] text-[0.875rem] border border-primary-main py-[18px] px-[16px] text-primary-medium bg-transparent rounded-[45px]"
+        >
           Save for offline
         </button>
       </div>
     </section>
-  )
+  );
 }

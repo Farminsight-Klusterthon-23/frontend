@@ -1,25 +1,20 @@
-"use client"
-import AuthenticatedScreensLayout from "../_components/AppLayout"
-import { ChatBoxContainer } from "./Components"
-import { ModeTogglerHeader } from "../_components/OfflineAndChatModeTogglerHeader"
-import { useState, useMemo } from "react"
-import { QuestionAndAnswer } from "../_components/ChatComponents"
-import useSocketManager from "../_hooks/useSocketManager"
-import { messagingEventsList } from "../_socket/events"
-import { messagingActions, messagingEvents } from "../_redux/messaging.js"
-import useGenerateEventHandlers from "../_hooks/useGenerateEventHandlers"
-import { useSelector, useDispatch } from "react-redux"
+"use client";
+import { useState } from "react";
+import AuthenticatedScreensLayout from "../_components/AppLayout";
+import { QuestionAndAnswer } from "../_components/ChatComponents";
+import { ModeTogglerHeader } from "../_components/OfflineAndChatModeTogglerHeader";
+import { ChatBoxContainer } from "./Components";
 
 export default function DashBoard() {
   const messagingEventHandlers = useGenerateEventHandlers(
     messagingEventsList,
     messagingActions
-  )
+  );
   const socket = useSocketManager({
     namespace: "/messages",
     events: messagingEventsList,
     eventHandlers: messagingEventHandlers,
-  })
+  });
 
   return (
     <AuthenticatedScreensLayout
@@ -31,19 +26,44 @@ export default function DashBoard() {
         <ChatMode socket={socket} />
       </div>
     </AuthenticatedScreensLayout>
-  )
+  );
 }
 
-function ChatMode({ socket }) {
-  const { questionAsked, answerGiven, loading } = useSelector(
-    (store) => store.messaging
-  )
-  const [question, setQuestion] = useState(questionAsked)
-  const hasAskedAQuestion = useMemo(
-    () => questionAsked.length > 0,
-    [questionAsked.length]
-  )
-  const dispatch = useDispatch()
+function ChatMode() {
+  const [hasAskedAQuestion, setHasAskedAQuestion] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const saveOffline = () => {
+    console.log("saving offline");
+    // get the previous questions and answers from local storage, if the new question is not already in the list, add it, and save it back to local storage, otherwise, do nothing
+    const previousQuestionsAndAnswers =
+      JSON.parse(localStorage.getItem("previousQuestionsAndAnswers")) || [];
+    const newQuestionAndAnswer = { question, answer };
+    if (
+      previousQuestionsAndAnswers.some(
+        (questionAndAnswer) =>
+          questionAndAnswer.question === question &&
+          questionAndAnswer.answer === answer
+      )
+    ) {
+      alert("Already saved for offline");
+      return;
+    }
+    const newQuestionsAndAnswers = [
+      ...previousQuestionsAndAnswers,
+      newQuestionAndAnswer,
+    ];
+    localStorage.setItem(
+      "previousQuestionsAndAnswers",
+      JSON.stringify(newQuestionsAndAnswers)
+    );
+    alert("Saved for offline");
+    setHasAskedAQuestion(false);
+    setQuestion("");
+    setAnswer("");
+  };
 
   if (hasAskedAQuestion)
     return (
@@ -51,12 +71,14 @@ function ChatMode({ socket }) {
         question={questionAsked}
         answer={answerGiven}
         loading={loading}
+        saveOffline={saveOffline}
         resetMode={() => {
-          setQuestion("")
-          dispatch(messagingActions.resetQuestionAndAnswer())
+          setHasAskedAQuestion(false);
+          setQuestion("");
+          setAnswer("");
         }}
       />
-    )
+    );
   return (
     <>
       <h1 className="text-center text-[2rem] md:text-[3rem] text-primary-main">
@@ -64,13 +86,12 @@ function ChatMode({ socket }) {
       </h1>
       <ChatBoxContainer
         handleSubmit={() => {
-          socket.emit(messagingEvents.question, { question })
-          dispatch(messagingActions.updateLoading(true))
-          dispatch(messagingActions.updateQuestionAsked(question))
+          setHasAskedAQuestion(true);
+          setLoading(true);
         }}
         onChange={setQuestion}
         inputValue={question}
       />
     </>
-  )
+  );
 }
