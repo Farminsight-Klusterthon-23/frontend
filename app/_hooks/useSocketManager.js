@@ -8,7 +8,21 @@ export default function useSocketManager({
 }) {
   const [socket, disconnect] = useSocket({ namespace })
 
-  useEffect(() => {})
+  useEffect(() => {
+    socket.onAny((ev, ...rest) => {
+      if(typeof eventHandlers[ev] === "function"){
+        eventHandlers[ev](...rest)
+      }
+    })
+
+    return () => {
+      socket.offAny((ev, ...rest) => {
+        if(typeof eventHandlers[ev] === "function"){
+          eventHandlers[ev](...rest)
+        }
+      })
+    }
+  }, [events, eventHandlers, socket])
 
   return socket
 }

@@ -59,9 +59,20 @@ export function UserQuestion({ text, userAvatar = "" }) {
 export function AIAnswer({ text, loading }) {
   return (
     <blockquote className="relative pl-[52px] background-white">
-      <p className="px-[1.4rem] py-[2rem] rounded-[14px] text-primary-medium text-[0.875rem] shadow-ai-chat">
-        {loading ? <ThinkingElement /> : text}
-      </p>
+      <div className="px-[1.4rem] py-[2rem] rounded-[14px] text-primary-medium text-[0.875rem] shadow-ai-chat">
+        {loading ? (
+          <ThinkingElement />
+        ) : (
+          text
+            .replaceAll(/\d+\./g, "-\n")
+            .split("-\n")
+            .map((str) => (
+              <p key={str} className="pb-3">
+                {str}
+              </p>
+            ))
+        )}
+      </div>
       <footer className="flex items-center justify-center absolute top-[18px] left-0">
         <cite className="absolute z-100 right-[1000vw]">Farminsight AI</cite>
         <AIAvatar />

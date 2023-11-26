@@ -1,3 +1,3 @@
-export const messageEvents = ["new", "getOne", "getMany", "deleteOne", "question"]
+export const messagingEventsList = ["new", "getOne", "getMany", "deleteOne", "question"]
 
-export const conversationEvents = ["new", "getOne", "getMany", "deleteOne"]
+export const conversationEventsList = ["new", "getOne", "getMany", "deleteOne"]

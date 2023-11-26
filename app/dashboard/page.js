@@ -2,16 +2,23 @@
 import AuthenticatedScreensLayout from "../_components/AppLayout"
 import { ChatBoxContainer } from "./Components"
 import { ModeTogglerHeader } from "../_components/OfflineAndChatModeTogglerHeader"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { QuestionAndAnswer } from "../_components/ChatComponents"
 import useSocketManager from "../_hooks/useSocketManager"
-import { messageEvents } from "../_socket/events"
+import { messagingEventsList } from "../_socket/events"
+import { messagingActions, messagingEvents } from "../_redux/messaging.js"
+import useGenerateEventHandlers from "../_hooks/useGenerateEventHandlers"
+import { useSelector, useDispatch } from "react-redux"
 
 export default function DashBoard() {
-  useSocketManager({
+  const messagingEventHandlers = useGenerateEventHandlers(
+    messagingEventsList,
+    messagingActions
+  )
+  const socket = useSocketManager({
     namespace: "/messages",
-    events: messageEvents,
-    eventHandlers: {},
+    events: messagingEventsList,
+    eventHandlers: messagingEventHandlers,
   })
 
   return (
@@ -21,28 +28,32 @@ export default function DashBoard() {
     >
       <div className="h-[calc(100dvh-150px)] flex flex-col items-center gap-y-[28px] w-[95dvw] sm:w-[95%] max-w-[915px] mx-auto">
         <ModeTogglerHeader currentMode={"chat"} />
-        <ChatMode />
+        <ChatMode socket={socket} />
       </div>
     </AuthenticatedScreensLayout>
   )
 }
 
-function ChatMode() {
-  const [hasAskedAQuestion, setHasAskedAQuestion] = useState(false)
-  const [question, setQuestion] = useState("")
-  const [answer, setAnswer] = useState("")
-  const [loading, setLoading] = useState(false)
+function ChatMode({ socket }) {
+  const { questionAsked, answerGiven, loading } = useSelector(
+    (store) => store.messaging
+  )
+  const [question, setQuestion] = useState(questionAsked)
+  const hasAskedAQuestion = useMemo(
+    () => questionAsked.length > 0,
+    [questionAsked.length]
+  )
+  const dispatch = useDispatch()
 
   if (hasAskedAQuestion)
     return (
       <QuestionAndAnswer
-        question={question}
-        answer={answer}
+        question={questionAsked}
+        answer={answerGiven}
         loading={loading}
         resetMode={() => {
-          setHasAskedAQuestion(false)
           setQuestion("")
-          setAnswer("")
+          dispatch(messagingActions.resetQuestionAndAnswer())
         }}
       />
     )
@@ -53,8 +64,9 @@ function ChatMode() {
       </h1>
       <ChatBoxContainer
         handleSubmit={() => {
-          setHasAskedAQuestion(true)
-          setLoading(true)
+          socket.emit(messagingEvents.question, { question })
+          dispatch(messagingActions.updateLoading(true))
+          dispatch(messagingActions.updateQuestionAsked(question))
         }}
         onChange={setQuestion}
         inputValue={question}
