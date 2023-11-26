@@ -35,7 +35,8 @@ export default function Login() {
       setLoading(true)
       e.preventDefault()
       const response = await errorHandler(loginUser)("users/login", formData)
-      if (response.status !== 200) setErrorMsg(response.message)
+      if (response?.status !== 200)
+        setErrorMsg(response?.message || "An internal error occurred")
       else {
         localStorage.setItem(
           process.env.NEXT_PUBLIC_LS_AUTH_KEY,

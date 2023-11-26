@@ -92,8 +92,7 @@ export default function OnBoarding() {
         longitude: formData.location.lng,
       })
       setLoading(Boolean(response) === true ? false : false)
-      if(!response) return 
-      if (response.status !== 200) setErrorMsg(response.message)
+      if (response && response.status !== 200) setErrorMsg(response?.message || "An internal error occured")
       else {
         dispatch(setUser(response.user))
         localStorage.setItem(
