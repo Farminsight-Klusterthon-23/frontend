@@ -1,12 +1,15 @@
 export function AuthInput({ Icon, label, inputProps = {} }) {
+  const { hasError, ...rest} = inputProps
   return (
     <label className="relative">
-      <span className="block absolute left-[8px] top-1/2 -translate-y-1/2">
+      <span className="block absolute left-[8px] w-[24px] h-[24px] top-1/2 -translate-y-1/2">
         <Icon />
       </span>
       <input
-        {...inputProps}
-        className="bg-[#EDF1FA] pl-[40px] border border-[#EDF1FA] py-[17px] pr-[8px] w-full rounded-[4px]"
+        {...rest}
+        className={`${
+          hasError ? "border-red-400" : "border-[#EDF1FA]"
+        } bg-[#EDF1FA] pl-[40px] border py-[17px] pr-[8px] w-full rounded-[4px]`}
       />
     </label>
   )
