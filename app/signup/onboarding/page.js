@@ -1,106 +1,107 @@
-"use client"
-import { AuthInput } from "@/app/_components/AuthInputs"
-import { UserSvg, ArrowSvg } from "@/app/_components/AuthSvgs"
-import { useState, useCallback, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { updateNamesAndLocation } from "@/app/_redux/signup"
-import { setUser } from "@/app/_redux/user"
-import { useRouter } from "next/navigation"
-import Loader from "@/app/_components/Loader"
-import { LocationSearchInput } from "./Components"
-import useFetch from "@/app/_request/useFetch"
-import useRequestErrorHandler from "@/app/_request/useRequestErrorHandler"
-import NextLink from "next/link"
+"use client";
+import { AuthInput } from "@/app/_components/AuthInputs";
+import { ArrowSvg, UserSvg } from "@/app/_components/AuthSvgs";
+import Loader from "@/app/_components/Loader";
+import { updateNamesAndLocation } from "@/app/_redux/signup";
+import { setUser } from "@/app/_redux/user";
+import useFetch from "@/app/_request/useFetch";
+import useRequestErrorHandler from "@/app/_request/useRequestErrorHandler";
+import NextLink from "next/link";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { LocationSearchInput } from "./Components";
 
 export default function OnBoarding() {
   const {
     data: { email, password },
-  } = useSelector((store) => store.signup)
-  const [loading, setLoading] = useState(false)
+  } = useSelector((store) => store.signup);
+  const [loading, setLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({
     location: false,
     firstName: false,
     lastName: false,
-  })
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const [errorMsg, setErrorMsg] = useState("")
-  const { error, errorHandler } = useRequestErrorHandler()
-  const signupUser = useFetch({ method: "POST" })
+  });
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [errorMsg, setErrorMsg] = useState("");
+  const { error, errorHandler } = useRequestErrorHandler();
+  const signupUser = useFetch({ method: "POST" });
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     location: null,
-  })
+  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormErrors((prev) => ({ ...prev, [name]: false }))
-    setErrorMsg("")
+    const { name, value } = e.target;
+    setFormErrors((prev) => ({ ...prev, [name]: false }));
+    setErrorMsg("");
     setFormData({
       ...formData,
       [name]: value,
-    })
-  }
+    });
+  };
 
   const updateLatLng = (latLng) => {
     setFormData({
       ...formData,
       location: latLng,
-    })
-  }
+    });
+  };
 
   const checkIsFormDataComplete = useCallback((data) => {
     return [
       Object.keys(data).every((key) => Boolean(data[key]) === true),
       Object.keys(data).filter((key) => Boolean(data[key]) === false),
-    ]
-  }, [])
+    ];
+  }, []);
 
   const handleSignup = useCallback(
     async (data) => {
-      return await errorHandler(signupUser)("users", data)
+      return await errorHandler(signupUser)("users", data);
     },
     [signupUser, errorHandler]
-  )
+  );
 
   const handleSubmit = useCallback(
     async (e) => {
-      setLoading(true)
-      e.preventDefault()
+      setLoading(true);
+      e.preventDefault();
       const [isFormDataComplete, incompleteFields] =
-        checkIsFormDataComplete(formData)
+        checkIsFormDataComplete(formData);
       if (!isFormDataComplete) {
-        setLoading(false)
+        setLoading(false);
         setErrorMsg(
           `Please fill in these fields: ${incompleteFields.join(",")}`
-        )
+        );
         return setFormErrors((prev) => ({
           ...prev,
           ...incompleteFields.reduce(
             (acc, field) => ({ ...acc, [field]: true }),
             {}
           ),
-        }))
+        }));
       }
-      dispatch(updateNamesAndLocation(formData))
+      dispatch(updateNamesAndLocation(formData));
       const response = await handleSignup({
         ...formData,
         email,
         password,
         latitude: formData.location.lat,
         longitude: formData.location.lng,
-      })
-      setLoading(Boolean(response) === true ? false : false)
-      if(!response) return 
-      if (response.status !== 200) setErrorMsg(response.message)
+      });
+      setLoading(Boolean(response) === true ? false : false);
+      if (!response) return;
+      if (response.status !== 200) setErrorMsg(response.message);
       else {
-        dispatch(setUser(response.user))
+        dispatch(setUser(response.user));
+        localStorage.setItem("user", JSON.stringify(response.user));
         localStorage.setItem(
           process.env.NEXT_PUBLIC_LS_AUTH_KEY,
           response.token
-        )
-        router.push("/dashboard")
+        );
+        router.push("/dashboard");
       }
     },
     [
@@ -112,11 +113,11 @@ export default function OnBoarding() {
       password,
       router,
     ]
-  )
+  );
 
   useEffect(() => {
-    if (email.length <= 0 || password.length <= 0) router.push("/signup")
-  }, [email.length, password.length, router])
+    if (email.length <= 0 || password.length <= 0) router.push("/signup");
+  }, [email.length, password.length, router]);
 
   return (
     <>
@@ -152,7 +153,7 @@ export default function OnBoarding() {
               onChange: handleChange,
               required: true,
               hasError: formErrors.firstName,
-              type: "text"
+              type: "text",
             }}
           />
           <AuthInput
@@ -164,7 +165,7 @@ export default function OnBoarding() {
               onChange: handleChange,
               required: true,
               hasError: formErrors.lastName,
-              type: "text"
+              type: "text",
             }}
           />
           <div>
@@ -188,5 +189,5 @@ export default function OnBoarding() {
         </button>
       </div>
     </>
-  )
+  );
 }
