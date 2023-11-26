@@ -151,6 +151,7 @@ export default function OnBoarding() {
               onChange: handleChange,
               required: true,
               hasError: formErrors.firstName,
+              type: "text"
             }}
           />
           <AuthInput
@@ -162,6 +163,7 @@ export default function OnBoarding() {
               onChange: handleChange,
               required: true,
               hasError: formErrors.lastName,
+              type: "password"
             }}
           />
           <div>
