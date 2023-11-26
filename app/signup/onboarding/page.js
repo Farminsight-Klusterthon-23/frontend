@@ -90,10 +90,9 @@ export default function OnBoarding() {
         password,
         latitude: formData.location.lat,
         longitude: formData.location.lng,
-      });
-      setLoading(Boolean(response) === true ? false : false);
-      if (!response) return;
-      if (response.status !== 200) setErrorMsg(response.message);
+      })
+      setLoading(Boolean(response) === true ? false : false)
+      if (response && response.status !== 200) setErrorMsg(response?.message || "An internal error occured")
       else {
         dispatch(setUser(response.user));
         localStorage.setItem("user", JSON.stringify(response.user));

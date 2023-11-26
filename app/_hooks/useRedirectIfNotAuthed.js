@@ -5,6 +5,7 @@ import useRequestErrorHandler from "../_request/useRequestErrorHandler"
 export default function useRedirectIfNotAuthed({
   redirectToDashboard,
   redirectToLogin,
+  pathname
 }) {
   const { error, errorHandler } = useRequestErrorHandler()
   const fetchUser = useFetch({ method: "GET" })
@@ -13,7 +14,7 @@ export default function useRedirectIfNotAuthed({
     if (localStorage.getItem(process.env.NEXT_PUBLIC_LS_AUTH_KEY) === null)
       return redirectToLogin()
     const data = await errorHandler(fetchUser)("users/me")
-    if (data.statusCode === 200 || data.status === 200) redirectToDashboard()
+    if (data && (data.statusCode === 200 || data.status === 200)) redirectToDashboard()
     else {
       localStorage.removeItem(process.env.NEXT_PUBLIC_LS_AUTH_KEY)
       redirectToLogin()
@@ -21,8 +22,8 @@ export default function useRedirectIfNotAuthed({
   }, [fetchUser, errorHandler, redirectToDashboard, redirectToLogin])
 
   useEffect(() => {
-    if (error !== null) redirectToLogin()
-  }, [error, redirectToLogin])
+    if (error !== null && pathname !== "/login") redirectToLogin()
+  }, [error, redirectToLogin, pathname])
 
   useEffect(() => {
     checkIfIsLoggedIn()
