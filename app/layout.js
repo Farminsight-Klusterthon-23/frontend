@@ -1,14 +1,17 @@
-"use client"
 import "./globals.css"
 import { Sora } from "next/font/google"
-import { Provider } from "react-redux"
-import store from "./_redux/store"
 const sora = Sora({ subsets: ["latin"] })
+import Provider from "./_components/ReduxProvider"
+
+export const metadata = {
+  manifest: "/manifest.json",
+  title: "FarmInsights",
+}
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Provider store={store}>
+      <Provider>
         <>
           <body className={sora.className}>{children}</body>
         </>
