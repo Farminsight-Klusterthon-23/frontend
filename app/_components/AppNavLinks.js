@@ -24,7 +24,7 @@ export default function Links() {
       <li>
         <NextLink
           className="flex items-center min-w-[169px] justify-start gap-x-[8px] rounded-[16px] text-primary-contrast-text text-[0.8rem] p-[14px] bg-primary-main capitalize text-base leading-[188%] font-normal"
-          href="/chats?new=true"
+          href="/newchat"
         >
           <PlusIcon /> New Chat
         </NextLink>
