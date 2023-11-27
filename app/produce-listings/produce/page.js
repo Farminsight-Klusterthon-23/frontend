@@ -80,7 +80,7 @@ export default function ProducePage() {
 
   useEffect(() => {
     const confirm =
-      shouldDelete === true ? window.confirm("Are you sure you?") : false
+      shouldDelete === true ? window.confirm("Are you sure?") : false
     if (confirm) {
       router.push("/produce-listings")
     }
