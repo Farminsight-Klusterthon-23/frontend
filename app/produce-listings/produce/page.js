@@ -1,6 +1,6 @@
 "use client"
 import AuthenticatedScreensLayout from "@/app/_components/AppLayout"
-import { useState, useMemo, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useSearchParams, useRouter } from "next/navigation"
 import useFetch from "@/app/_request/useFetch"
@@ -8,7 +8,7 @@ import useRequestErrorHandler from "@/app/_request/useRequestErrorHandler"
 import {
   updateLoading,
   updateSingleProduceInfo,
-  addNewProduceListings,
+  addNewProduceListing,
 } from "@/app/_redux/produce"
 import {
   PageLoadingSvg,
@@ -32,11 +32,9 @@ export default function ProducePage() {
   const getProduceData = useCallback(
     async (produceName) => {
       !loading && dispatch(updateLoading(true))
-      console.log(produceName)
       const response = await errorHandler(fetchProduceData)(
         `produce/crops/${produceName}`
       )
-      console.log(response)
       if (!response || response.status !== 200) {
         setRequestErr(response?.message || "Something went wrong!")
       } else {
@@ -60,7 +58,7 @@ export default function ProducePage() {
           " Please try again."
       )
     } else {
-      dispatch(addNewProduceListings(response.produce))
+      dispatch(addNewProduceListing(response.produce))
       window.alert(
         "Produce Information saved successfully. You can manage your produce in the produce listings tab"
       )
@@ -82,7 +80,7 @@ export default function ProducePage() {
 
   useEffect(() => {
     const confirm =
-      shouldDelete === true ? window.confirm("Are you sure you?") : false
+      shouldDelete === true ? window.confirm("Are you sure?") : false
     if (confirm) {
       router.push("/produce-listings")
     }
