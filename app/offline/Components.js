@@ -1,8 +1,8 @@
 import { FileSvg } from "./Svgs"
-
-export function OfflineDisplay({ hasOfflineItems }) {
-  if (!hasOfflineItems) return <NoOfflineItemsDisplay />
-  return <section></section>
+import NextLink from "next/link"
+export function OfflineDisplay({ show }) {
+  if (!show) return null
+  return <NoOfflineItemsDisplay />
 }
 
 export function NoOfflineItemsDisplay() {
@@ -17,9 +17,12 @@ export function NoOfflineItemsDisplay() {
       <p className="font-montserrat font-[400] text-[1.125rem] mb-[8px]">
         Searches you save for later can be found here even without a network.
       </p>
-      <button className="bg-primary-main mx-auto text-white text-base py-[16px] px-[12px] rounded-[4px]">
+      <NextLink
+        href="/dashboard"
+        className="block w-fit bg-primary-main mx-auto text-white text-base py-[16px] px-[12px] rounded-[4px]"
+      >
         Start asking questions
-      </button>
+      </NextLink>
     </section>
   )
 }

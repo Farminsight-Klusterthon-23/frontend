@@ -97,7 +97,15 @@ export function ThinkingElement() {
   )
 }
 
-export function QuestionAndAnswer({ question, answer, resetMode, loading }) {
+export function QuestionAndAnswer({
+  saved,
+  question,
+  answer,
+  resetMode,
+  loading,
+  saveForOffline,
+  showButtons = true
+}) {
   return (
     <section className="w-full">
       <div className="flex flex-col gap-y-[24px] w-full">
@@ -105,17 +113,21 @@ export function QuestionAndAnswer({ question, answer, resetMode, loading }) {
         <AIAnswer text={answer} loading={loading} />
       </div>
 
-      <div className="w-full flex-wrap flex items-center justify-center gap-[24px] my-[24px]">
+      {showButtons && <div className="w-full flex-wrap flex items-center justify-center gap-[24px] my-[24px]">
         <button
           onClick={resetMode}
           className="flex items-center justify-center font-montserrat font-[500] text-[0.875rem] border border-[#E2E8F0] py-[18px] px-[16px] bg-transparent rounded-[45px]"
         >
           Ask another question
         </button>
-        <button className="flex items-center justify-center font-montserrat font-[500] text-[0.875rem] border border-primary-main py-[18px] px-[16px] text-primary-medium bg-transparent rounded-[45px]">
+        <button
+          disabled={saved}
+          onClick={saveForOffline}
+          className="disabled:opacity-40 flex items-center justify-center font-montserrat font-[500] text-[0.875rem] border border-primary-main py-[18px] px-[16px] text-primary-medium bg-transparent rounded-[45px]"
+        >
           Save for offline
         </button>
-      </div>
+      </div>}
     </section>
   )
 }

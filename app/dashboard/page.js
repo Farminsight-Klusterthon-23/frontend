@@ -38,6 +38,7 @@ function ChatMode({ socket }) {
   const { questionAsked, answerGiven, loading } = useSelector(
     (store) => store.messaging
   )
+  const [saved, setSaved] = useState(false)
   const [deepDiveOption, setDeepDiveOption] = useState("")
   const [question, setQuestion] = useState("")
   const hasAskedAQuestion = useMemo(
@@ -63,8 +64,20 @@ function ChatMode({ socket }) {
     }
     dispatch(messagingActions.updateLoading(true))
     dispatch(messagingActions.updateQuestionAsked(question))
+    setSaved(false)
     socket.emit(messagingEvents.question, { question: questionToAsk })
   }, [deepDiveOption, dispatch, question, socket])
+
+  const saveForOffline = useCallback(() => {
+    let offlineData = JSON.parse(localStorage.getItem("offline-questions-and-answers"))
+    if(Array.isArray(offlineData)){
+      offlineData.push({ question: questionAsked, answer: answerGiven,})
+    }else {
+      offlineData = [{ question: questionAsked, answer: answerGiven,}]
+    }
+    localStorage.setItem("offline-questions-and-answers", JSON.stringify(offlineData))
+    setSaved(true)
+  }, [questionAsked, answerGiven])
 
   if (hasAskedAQuestion)
     return (
@@ -72,6 +85,8 @@ function ChatMode({ socket }) {
         question={questionAsked}
         answer={answerGiven}
         loading={loading}
+        saved={saved}
+        saveForOffline={() => !saved && saveForOffline()}
         resetMode={() => {
           setQuestion("")
           dispatch(messagingActions.resetQuestionAndAnswer())
