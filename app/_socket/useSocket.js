@@ -17,9 +17,7 @@ export default function useSocket({
         auth: {
           token,
         },
-        reconnection: false,
-        retries: 3,
-        ackTimeout: 10000,
+        reconnection: true,
       }),
     [namespace, token]
   )
@@ -28,15 +26,15 @@ export default function useSocket({
     socket.disconnect()
   }, [socket])
 
-  const tryReconnect = useCallback(() => {
-    setTimeout(() => {
-      socket.io.open((err) => {
-        if (err) {
-          tryReconnect()
-        }
-      })
-    }, 2000)
-  }, [socket])
+  // const tryReconnect = useCallback(() => {
+  //   setTimeout(() => {
+  //     socket.io.open((err) => {
+  //       if (err) {
+  //         tryReconnect()
+  //       }
+  //     })
+  //   }, 2000)
+  // }, [socket])
 
   useEffect(() => {
     socket.on("connect", onConnect)
@@ -44,7 +42,7 @@ export default function useSocket({
     socket.on("error", onError)
     socket.on("reconnect", onReconnect)
     socket.on("reconnect_error", onReconnectError)
-    socket.io.on("close", tryReconnect)
+    // socket.io.on("close", tryReconnect)
 
     return () => {
       socket.off("connect", onConnect)
@@ -52,9 +50,9 @@ export default function useSocket({
       socket.off("error", onError)
       socket.off("reconnect", onReconnect)
       socket.off("reconnect_error", onReconnectError)
-      socket.io.off("close", tryReconnect)
+      // socket.io.off("close", tryReconnect)
     }
-  }, [onConnect, onDisconnect, onError, onReconnect, onReconnectError, socket, tryReconnect])
+  }, [onConnect, onDisconnect, onError, onReconnect, onReconnectError, socket])
 
   useEffect(() => {
     setToken(localStorage.getItem(process.env.NEXT_PUBLIC_LS_AUTH_KEY))

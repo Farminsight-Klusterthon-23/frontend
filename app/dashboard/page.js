@@ -2,7 +2,7 @@
 import AuthenticatedScreensLayout from "../_components/AppLayout"
 import { ChatBoxContainer } from "./Components"
 import { ModeTogglerHeader } from "../_components/OfflineAndChatModeTogglerHeader"
-import { useState, useMemo } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { QuestionAndAnswer } from "../_components/ChatComponents"
 import useSocketManager from "../_hooks/useSocketManager"
 import { messagingEventsList } from "../_socket/events"
@@ -38,12 +38,18 @@ function ChatMode({ socket }) {
   const { questionAsked, answerGiven, loading } = useSelector(
     (store) => store.messaging
   )
-  const [question, setQuestion] = useState(questionAsked)
+  const [question, setQuestion] = useState("")
   const hasAskedAQuestion = useMemo(
     () => questionAsked.length > 0,
     [questionAsked.length]
   )
   const dispatch = useDispatch()
+
+  const handleSubmit = useCallback(() => {
+    dispatch(messagingActions.updateLoading(true))
+    dispatch(messagingActions.updateQuestionAsked(question))
+    socket.emit(messagingEvents.question, { question })
+  }, [question, socket])
 
   if (hasAskedAQuestion)
     return (
@@ -63,11 +69,7 @@ function ChatMode({ socket }) {
         Welcome to FarmInsight
       </h1>
       <ChatBoxContainer
-        handleSubmit={() => {
-          socket.emit(messagingEvents.question, { question })
-          dispatch(messagingActions.updateLoading(true))
-          dispatch(messagingActions.updateQuestionAsked(question))
-        }}
+        handleSubmit={handleSubmit}
         onChange={setQuestion}
         inputValue={question}
       />

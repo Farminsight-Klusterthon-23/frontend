@@ -8,7 +8,6 @@ import useRequestErrorHandler from "@/app/_request/useRequestErrorHandler"
 import {
   updateLoading,
   updateSingleProduceInfo,
-  resetSingleProduceInfo,
   addNewProduceListings,
 } from "@/app/_redux/produce"
 import {
@@ -121,7 +120,7 @@ export default function ProducePage() {
 function LoadingScreen({ loading }) {
   if (!loading) return null
   return (
-    <div className="lg:pl-[250px] z-[100] bg-white/50 flex flex-col items-center justify-center gap-y-[90px] w-full fixed inset-0 h-screen w-screen">
+    <div className="lg:pl-[250px] z-[100] bg-white/50 flex flex-col items-center justify-center gap-y-[90px] fixed inset-0 h-screen w-screen">
       <div className="animate-pulse duration-[300ms] ease-in-out">
         <PageLoadingSvg />
       </div>
