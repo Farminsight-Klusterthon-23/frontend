@@ -1,4 +1,4 @@
-'use Client'
+'use client'
 
 import { DefaultUserAvatar } from "../_components/ChatSvgs";
 
@@ -127,18 +127,7 @@ export function ChatMessage() {
                 panel project. Here are some ways you can use the kit as a
                 designer: Review the design of the kit: Examine the design
                 style, typography, color palette, and layout of the kit to get
-                inspiration for your own project. You can analyze the design
-                elements and select the ones that resonate with your project's
-                brand and goals. Customize the design: You can tweak the design
-                of the kit to match your branding needs. You can adjust the font
-                size, layout, color combinations, and other design elements to
-                create a design that aligns with your project's visual identity.
-                Use the kit's components: The kit contains pre-built UI
-                components that you can use as a starting point. Using these
-                components can help you design your interface quickly and
-                effectively. You can utilize the kit's widgets, charts, forms,
-                and maps to create a polished and professional-looking dashboard
-                quickly...
+                inspiration for your own project. 
               </p>
               <div className="flex">
                 <CopySvg />

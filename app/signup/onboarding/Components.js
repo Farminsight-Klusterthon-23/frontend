@@ -1,4 +1,4 @@
-"use Client"
+"use client"
 import { useState, useCallback } from "react"
 import PlacesAutocomplete, {
   geocodeByAddress,

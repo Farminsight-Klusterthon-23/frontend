@@ -1,4 +1,4 @@
-"use Client"
+"use client"
 import { LightThemeLogo } from "./Logos"
 import Links from "./AppNavLinks"
 import UserAvatarAndName from "./UserAvatarAndName"

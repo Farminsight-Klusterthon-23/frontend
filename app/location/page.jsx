@@ -1,4 +1,4 @@
-'use Client'
+'use client'
 import React from "react";
 import CropList from "../location/CropList";
 import Button from "./Button";
