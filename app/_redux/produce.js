@@ -22,7 +22,6 @@ export const produceSlice = createSlice({
     },
     addNewProduceListing: (state, action) => {
       let exists = state.produceListings.find(it => it?._id === action.payload._id)
-      console.log(exists, "jkakds")
       if(!exists)
         state.produceListings = [action.payload, ...state.produceListings]
     },

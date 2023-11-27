@@ -38,7 +38,6 @@ export default function ProducePage() {
     const response = await errorHandler(fetchProduceData)(
       `produce/${params.produceId}`
     )
-    console.log(response, "afjasdfk")
     if (!response || response.status !== 200) {
       setRequestErr(response?.message || "Something went wrong!")
     } else {
