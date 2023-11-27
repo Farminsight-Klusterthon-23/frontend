@@ -20,3 +20,8 @@
 input:focus, textarea:focus, select:focus{
   outline: 1px solid #034732;
 }
+
+button.bg-primary-main:hover, a.bg-primary-main:hover{
+  background: black;
+  color: white;
+}
