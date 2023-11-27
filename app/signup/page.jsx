@@ -7,11 +7,13 @@ import { useDispatch } from "react-redux"
 import { updateEmailAndPassword } from "@/app/_redux/signup"
 import { useRouter } from "next/navigation"
 import Loader from "../_components/Loader"
+import useAuth from "../_hooks/useAuth"
 
 const signupScreenText =
   "From ideal planting schedules to precise irrigation strategies, our platform helps you achieve optimal yields and sustainable farming practices."
 
 export default function Signup() {
+  useAuth()
   const dispatch = useDispatch()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -70,7 +72,7 @@ export default function Signup() {
                   value: formData.password,
                   onChange: handleChange,
                   required: true,
-                  type: "password"
+                  type: "password",
                 }}
               />
               <AuthSubmitButton>Continue</AuthSubmitButton>

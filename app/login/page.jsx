@@ -8,12 +8,15 @@ import { EmailSvg, PasswordSvg } from "../_components/AuthSvgs";
 import Loader from "../_components/Loader";
 import { setUser } from "../_redux/user";
 import useFetch from "../_request/useFetch";
+import useAuth from "../_hooks/useAuth"
+
 import useRequestErrorHandler from "../_request/useRequestErrorHandler";
 
 const loginScreenText =
   "Log in to your Farm insight account and pick up right where you left off. Your farm's success story continues with real-time insights, weather updates, and expert advice. Let's grow together!";
 
 export default function Login() {
+  useAuth()
   const router = useRouter();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);

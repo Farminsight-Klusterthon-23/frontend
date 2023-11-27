@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 
 function NavLink({ children, href, Icon }) {
   const pathname = usePathname()
-  const isActive = useMemo(() => pathname === href, [pathname, href])
+  const isActive = useMemo(() => pathname.includes(href), [pathname, href])
 
   return (
     <NextLink
