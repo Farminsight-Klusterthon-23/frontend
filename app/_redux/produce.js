@@ -6,6 +6,9 @@ export const produceSlice = createSlice({
     singleProduceInfo: null,
     produceListings: [],
     loading: false,
+    currentPage: 1,
+    hasMore: true,
+    hasFetchedInitial: false,
   },
   reducers: {
     updateSingleProduceInfo: (state, action) => {
@@ -17,9 +20,21 @@ export const produceSlice = createSlice({
     updateLoading: (state, action) => {
       state.loading = Boolean(action.payload)
     },
-    addNewProduceListings: (state, action) => {
-      console.log("here", action.payload)
-      state.produceListings = [action.payload, ...state.produceListings]
+    addNewProduceListing: (state, action) => {
+      let exists = state.produceListings.find(it => it?._id === action.payload._id)
+      console.log(exists, "jkakds")
+      if(!exists)
+        state.produceListings = [action.payload, ...state.produceListings]
+    },
+    updateProduceListings: (state, action) => {
+      state.hasFetchedInitial = true
+      state.loading = false
+      state.produceListings = action.payload
+    },
+    removeProduceLisitng: (state, action) => {
+      state.produceListings = state.produceListings.filter(
+        (it) => it._id !== action.payload
+      )
     },
   },
 })
@@ -28,7 +43,9 @@ export const {
   updateLoading,
   updateSingleProduceInfo,
   resetSingleProduceInfo,
-  addNewProduceListings,
+  addNewProduceListing,
+  updateProduceListings,
+  removeProduceLisitng,
 } = produceSlice.actions
 
 export default produceSlice.reducer
