@@ -2,7 +2,15 @@
 export default function ChatHistoryList() {
   return (
     <ul className="font-pjs py-[16px] flex flex-col gap-y-[6px]">
-      <li className="bg-[#F2F7FF] rounded-[8px] py-[4px] flex flex-col items-start gap-y-[6px]">
+    </ul>
+  )
+}
+
+
+export function RecentHistoryItem(){
+
+  return (
+     <li className="bg-[#F2F7FF] rounded-[8px] py-[4px] flex flex-col items-start gap-y-[6px]">
         <h4 className="pl-[8px] text-[0.875rem] text-secondary-medium">
           Today
         </h4>
@@ -10,7 +18,13 @@ export default function ChatHistoryList() {
           Latest advancements in agricultural robotics
         </button>
       </li>
-      <li className="bg-[#F2F7FF] rounded-[8px] py-[4px] flex flex-col items-start gap-y-[6px] opacity-50">
+  )
+}
+
+export function oldHistoryItem(){
+
+  return (
+  <li className="bg-[#F2F7FF] rounded-[8px] py-[4px] flex flex-col items-start gap-y-[6px] opacity-50">
         <h4 className="pl-[8px] text-[0.875rem] text-secondary-medium">
           Yesterday
         </h4>
@@ -21,7 +35,12 @@ export default function ChatHistoryList() {
           Latest advancements in agricultural robotics
         </button>
       </li>
-      <li className="bg-[#F2F7FF] rounded-[8px] py-[4px] flex flex-col items-start gap-y-[6px]">
+  )
+}
+export function olderHistoryItem(){
+
+  return (
+  <li className="bg-[#F2F7FF] rounded-[8px] py-[4px] flex flex-col items-start gap-y-[6px]">
         <h4 className="pl-[8px] text-[0.875rem] text-secondary-medium">
           4 days ago
         </h4>
@@ -41,6 +60,5 @@ export default function ChatHistoryList() {
           View all history
         </button>
       </li>
-    </ul>
   )
 }

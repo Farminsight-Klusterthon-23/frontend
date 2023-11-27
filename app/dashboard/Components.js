@@ -13,7 +13,13 @@ import useOutsideClick from "../_hooks/useOutsideClick"
 
 const montserrat = Montserrat({ subsets: ["latin"] })
 
-export function ChatBoxContainer({ inputValue, onChange, handleSubmit }) {
+export function ChatBoxContainer({
+  inputValue,
+  onChange,
+  handleSubmit,
+  handleSelectOption,
+  selectedOption,
+}) {
   return (
     <div className="w-full relative flex items-center flex-col gap-y-[14px]">
       <div className="w-full relative">
@@ -22,7 +28,10 @@ export function ChatBoxContainer({ inputValue, onChange, handleSubmit }) {
           onChange={onChange}
           handleSubmit={handleSubmit}
         />
-        <DeepDiveOptions />
+        <DeepDiveOptions
+          selectedOption={selectedOption}
+          handleSelectOption={handleSelectOption}
+        />
       </div>
       <SuggestedQuestions submitSelection={(value) => onChange(value)} />
     </div>
@@ -46,17 +55,23 @@ export function ChatTextBox({ value, onChange, handleSubmit }) {
         name="question"
         className="min-h-[33dvh] block w-full bg-secondary-contrast-text border border-secondary-dark rounded-[16px] pt-[41px] pb-[51px] px-[27px] text-base text-black font-normal"
       ></textarea>
-      <button type="submit" className="absolute right-[12px] text-white font-bold text-center bg-primary-main py-4 px-3 rounded-[14px] bottom-[12px]">
+      <button
+        type="submit"
+        className="absolute right-[12px] text-white font-bold text-center bg-primary-main py-4 px-3 rounded-[14px] bottom-[12px]"
+      >
         Ask!
       </button>
     </form>
   )
 }
 
-export function DeepDiveOptionItem({ href, Icon, heading, children }) {
+export function DeepDiveOptionItem({ onClick, Icon, heading, children }) {
   return (
     <li>
-      <NextLink href={href} className="flex items-start gap-x-[8px] p-[8px]">
+      <button
+        onClick={() => onClick(heading)}
+        className="flex items-start gap-x-[8px] p-[8px]"
+      >
         <span className="grow">{Icon && <Icon />}</span>
         <span className="flex flex-col gap-y-[8px]">
           <span
@@ -72,7 +87,7 @@ export function DeepDiveOptionItem({ href, Icon, heading, children }) {
             {children}
           </span>
         </span>
-      </NextLink>
+      </button>
     </li>
   )
 }
@@ -131,20 +146,26 @@ export function SuggestedQuestions({ submitSelection }) {
     </section>
   )
 }
+const DeepDiveIconMappings = {
+  "Weather report": WeatherSvg,
+  "Academic Articles": AcademicArticlesSvg,
+  "Produce insight": ProduceInsightsSvg,
+}
 
-export function DeepDiveOptions() {
+export function DeepDiveOptions({ handleSelectOption, selectedOption }) {
   const [showDropdown, setShowDropDown] = useState(false)
   const dropdownRef = useRef(null)
   useOutsideClick(dropdownRef, () => setShowDropDown(false))
 
+  const Icon = DeepDiveIconMappings[selectedOption] || SearchIconSvg
   return (
     <div ref={dropdownRef} className="absolute bottom-[15px] left-[24px]">
       <button
         onClick={() => setShowDropDown((prev) => !prev)}
         className="flex items-center gap-x-[8px] p-[8px] hover:scale-[1.05] transition-all duration-[300ms] ease-in-out"
       >
-        <SearchIconSvg />
-        Deep dive
+        <Icon />
+        {selectedOption || <>Deep dive</>}
       </button>
       <ul
         className={`${
@@ -155,6 +176,7 @@ export function DeepDiveOptions() {
           heading="Weather report"
           href="/weather"
           Icon={WeatherSvg}
+          onClick={handleSelectOption}
         >
           Get weather reports and history
         </DeepDiveOptionItem>
@@ -162,13 +184,15 @@ export function DeepDiveOptions() {
           heading="Academic Articles"
           href="/articles"
           Icon={AcademicArticlesSvg}
+          onClick={handleSelectOption}
         >
-          Get resources from academic platform on researches made regarding the{" "}
+          Get resources from academic platform on researches made regarding the
         </DeepDiveOptionItem>
         <DeepDiveOptionItem
           heading="Produce insight"
           href="/produce-insights"
           Icon={ProduceInsightsSvg}
+          onClick={handleSelectOption}
         >
           Get insight into market information easily
         </DeepDiveOptionItem>

@@ -61,7 +61,7 @@ export default function ProduceListings() {
           />
           <AddProduceForm show={showAddProduceForm && !loading} />
           <ProduceListDisplay
-            hide={showAddProduceForm}
+            hide={!hasProduce || showAddProduceForm}
             toggleDisplay={() => setShowAddProduceForm(true)}
             produceList={produceListings}
           />
@@ -72,7 +72,7 @@ export default function ProduceListings() {
 }
 
 function ProduceListDisplay({ produceList = [], toggleDisplay, hide }) {
-  if(hide) return null
+  if (hide) return null
   return (
     <section className="w-full">
       <div className="sticky top-0 bg-primary-contrast-text w-full">

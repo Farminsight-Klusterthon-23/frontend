@@ -10,7 +10,7 @@ export function NoProduceDisplay({ show, toggleDisplay = () => {} }) {
   if (!show) return null
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center min-h-[60vh] justify-center">
       <NoListingsSvg />
       <div className="flex gap-y-[11px] flex-col items-center">
         <h1 className="text-center text-[1.2rem] md:text-[1.6rem] text-primary-main">

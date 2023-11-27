@@ -38,6 +38,7 @@ function ChatMode({ socket }) {
   const { questionAsked, answerGiven, loading } = useSelector(
     (store) => store.messaging
   )
+  const [deepDiveOption, setDeepDiveOption] = useState("")
   const [question, setQuestion] = useState("")
   const hasAskedAQuestion = useMemo(
     () => questionAsked.length > 0,
@@ -45,11 +46,25 @@ function ChatMode({ socket }) {
   )
   const dispatch = useDispatch()
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
+    let questionToAsk = question
+    if (deepDiveOption.length > 0) {
+      switch (deepDiveOption) {
+        case "Weather report":
+          questionToAsk = `Format as a Weather Report: ${question}`
+          break
+        case "Academic Articles":
+          questionToAsk = `Format answer as an Academic Article: ${question}`
+          break
+        case "Produce insight":
+          questionToAsk = `Format as a Produce insight: ${question}`
+          break
+      }
+    }
     dispatch(messagingActions.updateLoading(true))
     dispatch(messagingActions.updateQuestionAsked(question))
-    socket.emit(messagingEvents.question, { question })
-  }, [question, socket])
+    socket.emit(messagingEvents.question, { question: questionToAsk })
+  }, [deepDiveOption, dispatch, question, socket])
 
   if (hasAskedAQuestion)
     return (
@@ -69,9 +84,11 @@ function ChatMode({ socket }) {
         Welcome to FarmInsight
       </h1>
       <ChatBoxContainer
+        handleSelectOption={(selection) => setDeepDiveOption(selection)}
         handleSubmit={handleSubmit}
         onChange={setQuestion}
         inputValue={question}
+        selectedOption={deepDiveOption}
       />
     </>
   )

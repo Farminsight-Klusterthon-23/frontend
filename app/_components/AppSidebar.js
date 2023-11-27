@@ -9,9 +9,10 @@ import useOutsideClick from "../_hooks/useOutsideClick"
 export default function SideBar({ show, hideSidebar = () => {} }) {
   const sidebarRef = useRef(null)
   useOutsideClick(sidebarRef, hideSidebar)
-  
+
   return (
-    <div ref={sidebarRef}
+    <div
+      ref={sidebarRef}
       className={`bg-primary-contrast-text overflow-auto z-[100] w-[95vw] max-w-[280px] min-h-[100dvh] fixed left-0 inset-y-0 sm:sticky pb-[2%] pt-[15%] pl-[8px] transition-transform duration-[300ms] ease-in-out ${
         show ? "translate-x-0" : "translate-x-[-100vw] sm:translate-x-0"
       }`}
@@ -25,7 +26,7 @@ export default function SideBar({ show, hideSidebar = () => {} }) {
             <Links />
           </div>
           <hr className="border-[#e3e3e3]" />
-          <section className="pt-[10%] px-[10px] flex flex-col items-start gap-y-[17px]">
+          <section className="pt-[10%] min-h-[40dvh] px-[10px] flex flex-col items-start gap-y-[17px]">
             <h3 className="flex items-center justify-start gap-x-[17px] text-base font-normal">
               History
               <button className="flex justify-center items-center">
