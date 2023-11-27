@@ -2,7 +2,6 @@
 
 import { DefaultUserAvatar } from "../_components/ChatSvgs";
 
-
 export default function TopInput () {
     return(
         <section className=" w-full h-12 bg-white rounded-lg flex justify-between shadow-lg my-4 md:w-full">
